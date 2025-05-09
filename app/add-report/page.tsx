@@ -1,0 +1,30 @@
+import React from "react";
+import { Camera, AlertCircle, Home, CircleChevronLeft } from "lucide-react";
+import { ReportForm } from "@/components/ReportForm";
+
+import Link from "next/link";
+const AddReport = () => {
+  return (
+    <div className="w-95/100 border-1 p-5 min-h-screen mx-auto max-w-6xl md:w-9/10">
+
+    <div>
+      <Link href="/">
+          {" "}
+          <div className='flex gap-2'>
+              <CircleChevronLeft />
+              <p>Back</p>
+          </div>
+        </Link>
+        
+
+      <h2 className="text-3xl font-semibold mb-5 mt-7 ">Create Report</h2>
+
+      <div>
+        <ReportForm />{" "}
+      </div>
+    </div>
+    </div>
+  );
+};
+
+export default AddReport;

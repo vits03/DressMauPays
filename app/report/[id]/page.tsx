@@ -1,4 +1,3 @@
-import React from 'react'
 import { doc, getDoc } from "firebase/firestore";
 import { db } from "@/lib/firebase";
 import Link from "next/link";
@@ -18,11 +17,10 @@ type Props = {
 // on page load , get all data from firebase 
 // display data on page
 //https://www.google.com/maps/place/<latitude>,<longitude
-export default  async function ReportPage({ params }: Props) {
- 
+export default async function ReportPage({ params }: Props) {
+  const { id } = await params;
 
 
-  const { id } = params;
  const docRef = doc(db, "reports", id);
   const docSnap = await getDoc(docRef);
 

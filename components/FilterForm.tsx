@@ -37,20 +37,39 @@ const FilterSchema = z.object({
 });
 
 type FilterFormValues = z.infer<typeof FilterSchema>;
+type Filters = {
+  village: string | null;
+  urgency: string | null;
+  order: string | null;
+};
 
-export default function FilterForm() {
+type FilterSidebarProps = {
+  setFilters: React.Dispatch<React.SetStateAction<Filters>>;
+};
+
+type MobileFilter = {
+  setIsMobileFilterOpen: React.Dispatch<React.SetStateAction<boolean>>;
+};
+
+type FilterFormProps = FilterSidebarProps & MobileFilter;
+export default function FilterForm({ setFilters, setIsMobileFilterOpen }: FilterFormProps) {
   const form = useForm<FilterFormValues>({
     resolver: zodResolver(FilterSchema),
     defaultValues: {
       urgency: "all",
       sortOrder: "descending",
-      locality: undefined,
+      locality:"selectAll"
     },
   });
 
   const onSubmit = (data: FilterFormValues) => {
     console.log("Filters:", data);
     // Call your filter logic here
+    setFilters({
+      village: data.locality,
+      urgency: data.urgency,
+      order: data.sortOrder,
+    })
   };
 
   return (
@@ -78,7 +97,7 @@ export default function FilterForm() {
                                   ? villages.find(
                                       (village) => village.value === field.value
                                     )?.label
-                                  : "Select locality..."}
+                                  : "Select a Locality"}
                                 <ChevronsUpDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />
                               </Button>
                             </FormControl>
@@ -89,6 +108,7 @@ export default function FilterForm() {
                               <CommandList>
                                 <CommandEmpty>No locality found.</CommandEmpty>
                                 <CommandGroup>
+                                
                                   {villages.map((village) => (
                                     <CommandItem
                                       key={village.value}
@@ -215,7 +235,7 @@ export default function FilterForm() {
           )}
         />
 
-        <Button type="submit">Apply Filters</Button>
+        <Button type="submit" onClick={() => setIsMobileFilterOpen(false)}>Apply Filters</Button>
       </form>
     </Form>
   );

@@ -19,7 +19,7 @@ const report = () => {
       <div className=" flex flex-col justify-center items-center mt-10 w-full report-container">
         <h1 className="text-3xl text-semibold mb-10">Burst water Pipe</h1>
 
-        <CarouselDemo />
+        <CarouselDemo imageURLs={} />
 
         <div className="report-description border-2  max-w-2xl flex flex-col gap-5 p-4 mt-10 rounded-2xl">
           <div>

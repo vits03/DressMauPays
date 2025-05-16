@@ -1,4 +1,5 @@
 const villages = [
+     { value: "selectAll", label: "Select All" },
     { value: "Solferino", label: "Solferino" },
     { value: "Terre rouge", label: "Terre rouge" },
     { value: "Phoenix", label: "Phoenix" },
@@ -144,7 +145,8 @@ const villages = [
     { value: "Bon accueil", label: "Bon accueil" },
     { value: "Arsenal", label: "Arsenal" },
     { value: "Amitie gokhoola", label: "Amitie gokhoola" },
-    { value: "Albion", label: "Albion" }
+    { value: "Albion", label: "Albion" },
+  
   ];
 
   export default villages;

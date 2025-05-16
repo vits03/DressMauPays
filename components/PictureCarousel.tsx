@@ -1,54 +1,42 @@
-import * as React from "react"
-import Image from "next/image"
-import { Card, CardContent } from "@/components/ui/card"
+import * as React from "react";
+import Image from "next/image";
+import { Card, CardContent } from "@/components/ui/card";
 import {
   Carousel,
   CarouselContent,
   CarouselItem,
   CarouselNext,
   CarouselPrevious,
-} from "@/components/ui/carousel"
+} from "@/components/ui/carousel";
 
-export function CarouselDemo() {
+type CarouselDemoProps = {
+  imageURLs: string[];
+};
+
+export function CarouselDemo({ imageURLs }: CarouselDemoProps) {
   return (
-    <Carousel className="w-8/10 max-w-md">
-      <CarouselContent>
-      
-          <CarouselItem>
-            <div className="p-1">
-              <Card>
-                <CardContent className="flex aspect-square items-center justify-center p-6">
-                <Image
-                              className="rounded-xl w-full h-auto"
-                              src="https://placehold.co/800x600.png"
-                              width={800}
-                              height={600}
-                              alt="Picture of the author"
-                            />
+    <div className="w-full max-w-xl mx-auto">
+      <Carousel className="w-full">
+        <CarouselContent>
+          {imageURLs.map((imageURL, index) => (
+            <CarouselItem key={index}>
+              <Card className="overflow-hidden rounded-xl shadow-md">
+                <CardContent className="p-0 relative aspect-[4/3] bg-white">
+                  <Image
+                    src={imageURL || "https://placehold.co/800x600?text=No+Image"}
+                    alt={`Report image ${index + 1}`}
+                    fill
+                    className="object-contain w-full rounded-lg h-full"
+                    sizes="(max-width: 768px) 100vw, 800px"
+                  />
                 </CardContent>
               </Card>
-            </div>
-          </CarouselItem>
-
-          <CarouselItem>
-            <div className="p-1">
-              <Card>
-                <CardContent className="flex aspect-square items-center justify-center p-6">
-                <Image
-                              className="rounded-xl w-full h-auto"
-                              src="https://placehold.co/800x600.png"
-                              width={800}
-                              height={600}
-                              alt="Picture of the author"
-                            />
-                </CardContent>
-              </Card>
-            </div>
-          </CarouselItem>
-       
-      </CarouselContent>
-      <CarouselPrevious />
-      <CarouselNext />
-    </Carousel>
-  )
+            </CarouselItem>
+          ))}
+        </CarouselContent>
+        <CarouselPrevious className="left-2" />
+        <CarouselNext className="right-2" />
+      </Carousel>
+    </div>
+  );
 }

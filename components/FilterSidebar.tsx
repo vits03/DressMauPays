@@ -2,8 +2,16 @@
 import { useState } from "react";
 import FilterForm from "./FilterForm";
 import { Funnel } from "lucide-react";
+type Filters = {
+  village: string | null;
+  urgency: string | null;
+  order: string | null;
+};
 
-export default function FilterSidebar() {
+type FilterSidebarProps = {
+  setFilters: React.Dispatch<React.SetStateAction<Filters>>;
+};
+export default function FilterSidebar({setFilters}:FilterSidebarProps) {
   const [isMobileFilterOpen, setIsMobileFilterOpen] = useState(false);
 
   return (
@@ -44,7 +52,7 @@ export default function FilterSidebar() {
           <div className="p-6 space-y-6">
             <h2 className="text-xl  font-semibold">Filter Reports</h2>
             {/* Filter Form */}
-            <FilterForm />
+            <FilterForm  setIsMobileFilterOpen={setIsMobileFilterOpen}  setFilters={setFilters} />
           </div>
         </div>
       </div>
@@ -52,7 +60,7 @@ export default function FilterSidebar() {
       {/* Full Sidebar on Desktop (hidden on mobile) */}
       <div className="hidden md:block w-60 md:40 shrink-0 p-4 border-2 shadow-2xl rounded-2xl mr-5 border-gray-200 ">
         <h2 className="text-xl font-semibold mb-10">Filter Reports</h2>
-        <FilterForm />
+        <FilterForm  setIsMobileFilterOpen={setIsMobileFilterOpen}  setFilters={setFilters}  />
       </div>
     </div>
   );

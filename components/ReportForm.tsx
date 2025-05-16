@@ -4,6 +4,12 @@ import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Button } from "@/components/ui/button";
 import {
+  getFirestore,
+  collection,
+  addDoc,
+  serverTimestamp,
+} from "firebase/firestore";
+import {
   Form,
   FormControl,
   FormField,
@@ -13,8 +19,11 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
-import { useRef } from "react"
+import { uploadImage } from "@/utils/uploadImage";
+import { useRef } from "react";
 import { Textarea } from "@/components/ui/textarea";
+import { redirect, usePathname } from "next/navigation";
+
 import { reportSchema } from "./schema";
 import { ReportFormValues } from "./schema";
 import { Label } from "@/components/ui/label";
@@ -26,6 +35,9 @@ import React from "react";
 import { Switch } from "@/components/ui/switch";
 import { useState } from "react";
 import { useEffect } from "react";
+import { db } from "@/lib/firebase";
+import { getAuth } from "firebase/auth";
+import StatusModal from "@/components/loadingModal";
 import {
   Command,
   CommandEmpty,
@@ -40,6 +52,10 @@ import {
   PopoverTrigger,
 } from "@/components/ui/popover";
 export function ReportForm() {
+  const [status, setStatus] = useState<"loading" | "success" | "error" | null>(
+    null
+  );
+
   type Location = {
     latitude: number;
     longitude: number;
@@ -62,11 +78,55 @@ export function ReportForm() {
       image: undefined! as FileList, // Type assertion for initialization
     },
   });
-  function onSubmit(data: ReportFormValues) {
+  const onSubmit = async (data: ReportFormValues) => {
+    setStatus("loading");
     console.log(data);
-    // eslint-disable-next-line no-alert
-    alert(JSON.stringify(data, null, 2));
-  }
+    try {
+      const files: FileList = data.image;
+
+      // Upload both images
+      const uploadPromises = Array.from(files).map((file) =>
+        uploadImage(file, `reports/${Date.now()}-${file.name}`)
+      );
+
+      const imageURLs = await Promise.all(uploadPromises);
+
+      const auth = getAuth();
+      const user = auth.currentUser;
+      console.log(user);
+      const reportData = {
+        userId: user?.uid,
+        title: data.title,
+        description: data.description,
+        locality: data.locality,
+        urgency: data.urgency,
+        address: data.address,
+        gps: location,
+        isApproved: false,
+        isResolved: false,
+        resolutionRequest: false,
+        resolvedImageUrl: "",
+        resolvedAt: "",
+        imageURLs, // array of uploaded image URLs
+        createdAt: serverTimestamp(),
+      };
+
+      console.log(reportData);
+      await addDoc(collection(db, "reports"), reportData);
+      setStatus("success");
+      setTimeout(() => {
+        setStatus(null);
+        redirect("/");
+      }, 5000);
+
+      console.log("Report uploaded successfully!");
+    } catch (error) {
+      setStatus("error");
+      setTimeout(() => {
+        setStatus(null);
+      }, 2000);
+    }
+  };
 
   const getLocation = (): Promise<boolean> => {
     return new Promise((resolve) => {
@@ -75,7 +135,7 @@ export function ReportForm() {
         resolve(false);
         return;
       }
-  
+
       navigator.geolocation.getCurrentPosition(
         (position) => {
           setLocation({
@@ -91,11 +151,11 @@ export function ReportForm() {
       );
     });
   };
-  
 
   return (
     <>
       <Form {...form}>
+        <StatusModal status={status} />{" "}
         <form
           onSubmit={form.handleSubmit(onSubmit)}
           className="md:w-2/3 mt-8 space-y-8"
@@ -108,7 +168,11 @@ export function ReportForm() {
               <FormItem>
                 <FormLabel>Problem Title*</FormLabel>
                 <FormControl>
-                  <Input className="border-2 border-gray-400"  placeholder="Broken streetlight..." {...field} />
+                  <Input
+                    className="border-2 border-gray-400"
+                    placeholder="Broken streetlight..."
+                    {...field}
+                  />
                 </FormControl>
                 <FormMessage /> {/* Shows Zod error */}
               </FormItem>
@@ -123,7 +187,11 @@ export function ReportForm() {
               <FormItem>
                 <FormLabel>Description*</FormLabel>
                 <FormControl>
-                  <Textarea className="border-2 border-gray-400" placeholder="Describe the issue..." {...field} />
+                  <Textarea
+                    className="border-2 border-gray-400"
+                    placeholder="Describe the issue..."
+                    {...field}
+                  />
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -162,25 +230,29 @@ export function ReportForm() {
                       <CommandList>
                         <CommandEmpty>No locality found.</CommandEmpty>
                         <CommandGroup>
-                          {villages.map((village) => (
-                            <CommandItem
-                              key={village.value}
-                              value={village.value}
-                              onSelect={() => {
-                                form.setValue("locality", village.value);
-                              }}
-                            >
-                              <Check
-                                className={cn(
-                                  "mr-2 h-4 w-4",
-                                  field.value === village.value
-                                    ? "opacity-100"
-                                    : "opacity-0"
-                                )}
-                              />
-                              {village.label}
-                            </CommandItem>
-                          ))}
+                          {villages.map((village) => {
+                            if (village.value === "selectAll") return null;
+
+                            return (
+                              <CommandItem
+                                key={village.value}
+                                value={village.value}
+                                onSelect={() => {
+                                  form.setValue("locality", village.value);
+                                }}
+                              >
+                                <Check
+                                  className={cn(
+                                    "mr-2 h-4 w-4",
+                                    field.value === village.value
+                                      ? "opacity-100"
+                                      : "opacity-0"
+                                  )}
+                                />
+                                {village.label}
+                              </CommandItem>
+                            );
+                          })}
                         </CommandGroup>
                       </CommandList>
                     </Command>
@@ -198,7 +270,11 @@ export function ReportForm() {
               <FormItem>
                 <FormLabel>Address*</FormLabel>
                 <FormControl>
-                  <Input className="border-2 border-gray-400"  placeholder="Royal Road ,..." {...field} />
+                  <Input
+                    className="border-2 border-gray-400"
+                    placeholder="Royal Road ,..."
+                    {...field}
+                  />
                 </FormControl>
                 <FormMessage /> {/* Shows Zod error */}
               </FormItem>
@@ -218,21 +294,36 @@ export function ReportForm() {
                   >
                     <FormItem className="flex items-center space-x-3 space-y-0">
                       <FormControl>
-                        <RadioGroupItem className="border-2  border-gray-400" value="low" />
+                        <RadioGroupItem
+                          className="border-2  border-gray-400"
+                          value="low"
+                        />
                       </FormControl>
-                      <FormLabel className="font-normal  bg-green-700 text-white rounded-2xl py-2 px-3 ">Low</FormLabel>
+                      <FormLabel className="font-normal  bg-green-600 text-white rounded-2xl py-2 px-3 ">
+                        Low
+                      </FormLabel>
                     </FormItem>
                     <FormItem className="flex items-center space-x-3 space-y-0">
                       <FormControl>
-                        <RadioGroupItem className="border-2 border-gray-400" value="medium" />
+                        <RadioGroupItem
+                          className="border-2 border-gray-400"
+                          value="medium"
+                        />
                       </FormControl>
-                      <FormLabel className="font-normal  bg-orange-600 text-white rounded-2xl py-2 px-3">Medium </FormLabel>
+                      <FormLabel className="font-normal  bg-yellow-600 text-white rounded-2xl py-2 px-3">
+                        Medium{" "}
+                      </FormLabel>
                     </FormItem>
                     <FormItem className="flex items-center space-x-3 space-y-0">
                       <FormControl>
-                        <RadioGroupItem className="border-2 border-gray-400" value="high" />
+                        <RadioGroupItem
+                          className="border-2 border-gray-400"
+                          value="high"
+                        />
                       </FormControl>
-                      <FormLabel className="font-normal bg-red-600 text-white rounded-2xl py-2 px-3 ">High</FormLabel>
+                      <FormLabel className="font-normal bg-red-600 text-white rounded-2xl py-2 px-3 ">
+                        High
+                      </FormLabel>
                     </FormItem>
                   </RadioGroup>
                 </FormControl>
@@ -256,67 +347,66 @@ export function ReportForm() {
                   </FormDescription>
                 </div>
                 <FormControl>
-  <Switch
-    checked={field.value}
-    onCheckedChange={async (checked) => {
-      if (checked) {
-        const granted = await getLocation();
-        if (granted) {
-          field.onChange(true);
-        } else {
-          // User denied location; reset switch to false
-          field.onChange(false);
-          setLocation({ latitude: 0, longitude: 0 });
-        }
-      } else {
-        field.onChange(false);
-        setLocation({ latitude: 0, longitude: 0 });
-      }
-    }}
-  />
-</FormControl>
-
+                  <Switch
+                    checked={field.value}
+                    onCheckedChange={async (checked) => {
+                      if (checked) {
+                        const granted = await getLocation();
+                        if (granted) {
+                          field.onChange(true);
+                        } else {
+                          // User denied location; reset switch to false
+                          field.onChange(false);
+                          setLocation({ latitude: 0, longitude: 0 });
+                        }
+                      } else {
+                        field.onChange(false);
+                        setLocation({ latitude: 0, longitude: 0 });
+                      }
+                    }}
+                  />
+                </FormControl>
               </FormItem>
             )}
           />
-        <FormField
-  control={form.control}
-  name="image"
-  render={({ field }) => {
-    const inputRef = useRef<HTMLInputElement>(null);
+          <FormField
+            control={form.control}
+            name="image"
+            render={({ field }) => {
+              const inputRef = useRef<HTMLInputElement>(null);
 
-    return (
-      <FormItem>
-        <FormLabel>Images (max 2)*</FormLabel>
-        <FormControl>
-          <Input
-            ref={inputRef}
-            type="file"
-            multiple
-            accept="image/*"
-            className="py-1 border-2 border-gray px-5 md:w-2/3 w-full"
-            onChange={(e) => {
-              const files = e.target.files;
-              const fileArray = files ? Array.from(files) : [];
+              return (
+                <FormItem>
+                  <FormLabel>Images (max 2)*</FormLabel>
+                  <FormControl>
+                    <Input
+                      ref={inputRef}
+                      type="file"
+                      multiple
+                      accept="image/*"
+                      className="py-1 border-2 border-gray px-5 md:w-2/3 w-full"
+                      onChange={(e) => {
+                        const files = e.target.files;
+                        const fileArray = files ? Array.from(files) : [];
 
-              if (fileArray.length > 2) {
-                alert("Please select only up to 2 images.");
-                if (inputRef.current) {
-                  inputRef.current.value = ""; // Clear the input
-                }
-                field.onChange([]); // Clear field value
-                return;
-              }
+                        if (fileArray.length > 2) {
+                          alert("Please select only up to 2 images.");
+                          if (inputRef.current) {
+                            inputRef.current.value = ""; // Clear the input
+                          }
+                          field.onChange([]); // Clear field value
+                          return;
+                        }
 
-              field.onChange(fileArray);
+                        field.onChange(fileArray);
+                      }}
+                    />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              );
             }}
           />
-        </FormControl>
-        <FormMessage />
-      </FormItem>
-    );
-  }}
-/>
 
           <Button type="submit">Submit Report</Button>
         </form>

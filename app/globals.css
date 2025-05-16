@@ -126,8 +126,7 @@
   left: -8px;
   background: #4CAF50;
   color: white;
-  font-size: 11px;
-  font-weight: 100;
+  font-size: 12px;
   padding: 2px 8px;
   z-index: 1;
 }
@@ -138,8 +137,7 @@
   left: -8px;
   background: #d8a026;
   color: white;
-  font-size: 11px;
-  font-weight: 100;
+  font-size: 12px;
   padding: 2px 8px;
   z-index: 1;
 }
@@ -151,7 +149,11 @@
   left: -8px;
   background: #e21a1a;
   color: white;
-  font-size: 11px;
+  font-size: 12px;
   padding: 2px 8px;
   z-index: 1;
+}
+
+body {
+  font-family: var(--font-inter), sans-serif;
 }

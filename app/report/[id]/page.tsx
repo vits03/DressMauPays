@@ -6,13 +6,14 @@ import Image from "next/image";
 import { CarouselDemo } from "@/components/PictureCarousel";
 import { MapPin } from "lucide-react";
 import { LogIn } from "lucide-react";
+type tParams = Promise<{ id: string }>;
 
 //get report id from props [id]
 // on page load , get all data from firebase 
 // display data on page
 //https://www.google.com/maps/place/<latitude>,<longitude
-export default async function ReportPage({ params }: {params: Promise<{ id: string }>}) {
-  const { id } = await params;
+export default async function ReportPage({ params }: {params: tParams}) {
+  const { id } :{id:string} = await params;
 
 
  const docRef = doc(db, "reports", id);
@@ -41,7 +42,7 @@ const isGpsPresent = () => {
 
      <div className="w-95/100 border-1 p-5 min-h-screen mx-auto max-w-5xl md:w-9/10">
       <Link href="/">
-        {" "}
+       
         <div className="flex gap-2">
           <CircleChevronLeft />
           <p>Back</p>

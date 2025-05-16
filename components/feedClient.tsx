@@ -16,7 +16,16 @@ import ReportCard from "./ReportCard";
 import ReportCardSkeleton from "./reportCardSkeleton";
 
 const PAGE_SIZE = 5;
-
+interface ReportData {
+  title: string;
+  description: string;
+  createdAt: any;  // or Timestamp, depending on your setup
+  gps?: { latitude: number; longitude: number };
+  urgency: string;
+  imageURLs: string[];
+  address: string;
+  // add other fields here as needed
+}
 type Filters = {
   village: string | null;
   urgency: string | null;
@@ -59,7 +68,7 @@ const FeedClient = ({ filters }: Props) => {
     }
 
     const snap = await getDocs(q);
-    const docs = snap.docs.map((doc) => ({ id: doc.id, ...doc.data() }));
+    const docs = snap.docs.map((doc) => ({ id: doc.id, ...(doc.data() as ReportData) }));
     setReports(docs);
     setLastDoc(snap.docs[snap.docs.length - 1]);
     setHasMore(snap.docs.length === PAGE_SIZE);
@@ -90,7 +99,7 @@ const FeedClient = ({ filters }: Props) => {
     }
 
     const snap = await getDocs(q);
-    const newDocs = snap.docs.map((doc) => ({ id: doc.id, ...doc.data() }));
+    const newDocs = snap.docs.map((doc) => ({ id: doc.id,  ...(doc.data() as ReportData) }));
     setReports((prev) => [...prev, ...newDocs]);
     setLastDoc(snap.docs[snap.docs.length - 1]);
     setHasMore(snap.docs.length === PAGE_SIZE);

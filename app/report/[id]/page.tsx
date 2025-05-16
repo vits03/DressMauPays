@@ -6,18 +6,12 @@ import Image from "next/image";
 import { CarouselDemo } from "@/components/PictureCarousel";
 import { MapPin } from "lucide-react";
 import { LogIn } from "lucide-react";
-type Props = {
-  params: {
-    id: string;
-  };
-};
-
 
 //get report id from props [id]
 // on page load , get all data from firebase 
 // display data on page
 //https://www.google.com/maps/place/<latitude>,<longitude
-export default async function ReportPage({ params }: Props) {
+export default async function ReportPage({ params }: {params: Promise<{ id: string }>}) {
   const { id } = await params;
 
 

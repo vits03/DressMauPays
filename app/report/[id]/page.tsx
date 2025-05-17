@@ -50,43 +50,43 @@ const isGpsPresent = () => {
       </Link>
 
       <div className=" flex flex-col justify-center items-center mt-10 w-full report-container">
-        <h1 className="text-2xl font-medium mb-5">{report.title[0].toUpperCase()+report.title.slice(1)}</h1>
+        <h1 className="text-2xl font-semibold mb-5">{report.title[0].toUpperCase()+report.title.slice(1)}</h1>
 
         <CarouselDemo imageURLs={report.imageURLs} />
 
         <div className="report-description border-2 border-gray-400 md:w-xl max-w-xl flex flex-col gap-6 p-4 mt-10 rounded-2xl">
           <div>
-            <h2 className="text-lg font-semibold mb-1 ">Description</h2>
-            <p className=' font-normal'>
+            <h2 className="text-md font-semibold mb-1 ">Description</h2>
+            <p className=' font-normal text-sm'>
               {report.description}
             </p>
           </div>
 
           <div>
-            <h2 className="text-lg font-semibold mb-1">Address</h2>
-            <p className=' font-normal'>
+            <h2 className=" font-semibold mb-1">Address</h2>
+            <p className=' font-normal text-sm'>
                 {report.address}</p>
           </div>
 
           <div>
-            <h2 className="text-lg font-semibold mb-1 ">Date posted</h2>
-                        <p className=' font-normal'>
+            <h2 className=" font-semibold mb-1 ">Date posted</h2>
+                        <p className=' font-normal  text-sm'>
 {report.createdAt.toDate().toLocaleDateString("en-GB")}</p>
           </div>
 
           <div>
-            <h2 className="text-lg font-semibold mb-1">Urgency</h2>
+            <h2 className=" font-semibold mb-1">Urgency</h2>
             <div className={`px-5 py-1 text-sm text-white w-fit rounded-2xl ${getUrgency()}`}>
               {report.urgency[0].toUpperCase() + report.urgency.slice(1)}
             </div>
           </div>
 
           <div>
-            <h2 className="text-lg font-semibold mb-1 ">Location</h2>
+            <h2 className=" font-semibold mb-1 ">Location</h2>
             <a href={isGpsPresent()?`https://www.google.com/maps/place/${report.gps.latitude},${report.gps.longitude}`:"#"} target="_blank" rel="noopener noreferrer">
 
 < button  disabled={!isGpsPresent()} className={`flex gap-2 py-3   hover:bg-gray-400  px-5 border-2 w-fit rounded-xl ${!isGpsPresent() ? "opacity-35 disabled" : "bg-gray-300"}`}>
-              <p className="font-semibold">Open in maps</p>
+              <p className="font-medium text-sm">Open in maps</p>
               <LogIn />
             </button></a>
           </div>

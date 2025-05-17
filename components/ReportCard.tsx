@@ -21,7 +21,7 @@ const ReportCard = ({ id, imageURLs=[], locality, createdAt, title, description 
     <Link href={`/report/${id}`}>
       <div className={`card-container relative urgency-${urgency} w-full max-w-[19rem] border-2 border-gray-500 rounded-xl flex-shrink-0`}>
        <Image
-  className="rounded-lg w-full h-[250px] object-cover"
+  className="rounded-lg w-full h-[300px] object-cover"
   src={imageURLs[0]}
   placeholder="blur"
   blurDataURL="https://placehold.co/800x600.png"
@@ -30,8 +30,8 @@ const ReportCard = ({ id, imageURLs=[], locality, createdAt, title, description 
   alt="Report Image"
 />
 
-        <div className="card-details space-y-2 px-3">
-          <h2 className="card-title text-lg font-medium text-gray-900 text-ellipsis line-clamp-1 my-1">{  title[0].toUpperCase()+title.substring(1)}</h2>
+        <div className="card-details space-y-2 mt-2  px-3">
+          <h2 className="card-title text-lg font-semibold text-gray-900 text-ellipsis line-clamp-1 my-1">{  title[0].toUpperCase()+title.substring(1)}</h2>
           <p className="card-description text-sm  text-gray-700 font-medium text-ellipsis line-clamp-1">
             {description}
           </p>

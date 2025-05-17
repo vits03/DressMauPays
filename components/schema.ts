@@ -11,7 +11,7 @@ export const reportSchema = z.object({
   urgency: z.enum(["low", "medium", "high"]),
   image: z.custom<FileList>()
     .refine((files) => files?.length > 0, "Choose upto 2 images")
-    .refine((files) => files?.[0]?.size <= 5 * 1024 * 1024, "Max 5MB")
+    .refine((files) => files?.[0]?.size <= 8 * 1024 * 1024, "Max 8MB")
 });
 
 export type ReportFormValues = z.infer<typeof reportSchema>;

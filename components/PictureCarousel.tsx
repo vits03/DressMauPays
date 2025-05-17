@@ -26,7 +26,7 @@ export function CarouselDemo({ imageURLs }: CarouselDemoProps) {
                     src={imageURL || "https://placehold.co/800x600?text=No+Image"}
                     alt={`Report image ${index + 1}`}
                     fill
-                    className="object-contain w-full rounded-lg h-full"
+                    className="object-contain w-full  h-full"
                     sizes="(max-width: 768px) 100vw, 800px"
                   />
                 </CardContent>

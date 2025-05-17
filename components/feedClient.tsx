@@ -132,7 +132,7 @@ const FeedClient = ({ filters }: Props) => {
 
     </div>
      {hasMore && !loading && (
-        <Button onClick={fetchMore} className="mt-4 px-4 py-2 w-fit self-center bg-blue-500 text-white rounded">
+        <Button onClick={fetchMore} className="w-fit mx-auto mt-5 rounded-full">
           Load More
         </Button>
       )}

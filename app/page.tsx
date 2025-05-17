@@ -10,12 +10,13 @@ import FeedClient from "@/components/feedClient";
 import { Suspense, useEffect } from "react";
 import ReportCardSkeleton from "@/components/reportCardSkeleton";
 import { useState } from "react";
-export default function Home() {
   type Filters = {
   village: string | null;
   urgency: string | null;
   order: string | null;
 };
+export default function Home() {
+
 const [filters, setFilters] = useState<Filters>({
   village: null,
   urgency: null,

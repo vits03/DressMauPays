@@ -21,7 +21,7 @@ const ReportCard = ({ id, imageURLs=[], locality, createdAt, title, description 
     <Link href={`/report/${id}`}>
       <div className={`card-container relative urgency-${urgency} w-full max-w-[19rem] border-2 border-gray-500 rounded-xl flex-shrink-0`}>
        <Image
-  className="rounded-lg w-full h-[300px] object-cover"
+  className="rounded-lg w-full h-[250px] object-cover"
   src={imageURLs[0]}
   placeholder="blur"
   blurDataURL="https://placehold.co/800x600.png"

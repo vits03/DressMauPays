@@ -155,7 +155,7 @@ export function ReportForm() {
   return (
     <>
       <Form {...form}>
-        <StatusModal status={status} />{" "}
+        <StatusModal onClose={() => setStatus(null)} status={status} />{" "}
         <form
           onSubmit={form.handleSubmit(onSubmit)}
           className="md:w-2/3 mt-8 space-y-8"
@@ -331,7 +331,6 @@ export function ReportForm() {
               </FormItem>
             )}
           />
-          {/* Image Upload (Required) */}
           <FormField
             control={form.control}
             name="gps"
@@ -370,43 +369,69 @@ export function ReportForm() {
             )}
           />
           <FormField
-            control={form.control}
-            name="image"
-            render={({ field }) => {
-              const inputRef = useRef<HTMLInputElement>(null);
+  control={form.control}
+  name="image"
+  render={({ field }) => {
+    const inputRef = useRef<HTMLInputElement>(null);
+    const [previews, setPreviews] = useState<string[]>([]);
 
-              return (
-                <FormItem>
-                  <FormLabel>Images (max 2)*</FormLabel>
-                  <FormControl>
-                    <Input
-                      ref={inputRef}
-                      type="file"
-                      multiple
-                      accept="image/*"
-                      className="py-1 border-2 border-gray px-5 md:w-2/3 w-full"
-                      onChange={(e) => {
-                        const files = e.target.files;
-                        const fileArray = files ? Array.from(files) : [];
+    const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+      const files = e.target.files;
+      const fileArray = files ? Array.from(files) : [];
 
-                        if (fileArray.length > 2) {
-                          alert("Please select only up to 2 images.");
-                          if (inputRef.current) {
-                            inputRef.current.value = ""; // Clear the input
-                          }
-                          field.onChange([]); // Clear field value
-                          return;
-                        }
+      if (fileArray.length > 2) {
+        alert("Please select only up to 2 images.");
+        if (inputRef.current) {
+          inputRef.current.value = "";
+        }
+        field.onChange([]);
+        setPreviews([]);
+        return;
+      }
 
-                        field.onChange(fileArray);
-                      }}
-                    />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              );
-            }}
-          />
+      field.onChange(fileArray);
+
+      // Generate image previews
+      const urls = fileArray.map(file => URL.createObjectURL(file));
+      setPreviews(urls);
+    };
+
+    return (
+      <FormItem>
+        <FormLabel>Images (max 2)*</FormLabel>
+        <FormControl>
+          <div>
+            <Input
+              ref={inputRef}
+              type="file"
+              multiple
+              accept="image/*"
+              className="py-1 border-2 border-gray px-5 md:w-2/3 w-full"
+              onChange={handleFileChange}
+            />
+
+            {previews.length > 0 && (
+              <div className="flex gap-4 mt-4">
+                {previews.map((src, idx) => (
+                  <img
+                    key={idx}
+                    src={src}
+                    alt={`preview-${idx}`}
+                    className="w-24 h-24 object-cover rounded-lg border"
+                  />
+                ))}
+              </div>
+            )}
+          </div>
+        </FormControl>
+        <FormMessage />
+      </FormItem>
+    );
+  }}
+/>
+
+      
+
 
           <Button type="submit">Submit Report</Button>
         </form>

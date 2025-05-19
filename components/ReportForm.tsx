@@ -331,45 +331,53 @@ export function ReportForm() {
               </FormItem>
             )}
           />
-          <FormField
-            control={form.control}
-            name="gps"
-            render={({ field }) => (
-              <FormItem className="flex flex-row items-center justify-between rounded-lg border p-4">
-                <div className="space-y-0.5">
-                  <FormLabel className="text-base">
-                    Use my Current GPS position{" "}
-                  </FormLabel>
-                  <FormDescription>
-                    exact gps coordinates of the reported issues makes it easier
-                    to locate.{" "}
-                  </FormDescription>
-                </div>
-                <FormControl>
-                  <Switch
-                    checked={field.value}
-                    onCheckedChange={async (checked) => {
-  if (checked) {
-    const granted = await getLocation();
+         <FormField
+  control={form.control}
+  name="gps"
+  render={({ field }) => {
+    const [isChecked, setIsChecked] = useState(field.value);
 
-    if (granted) {
-      field.onChange(true);
-    } else {
-      // Prevent toggle staying on if denied
-      setTimeout(() => field.onChange(false), 0);
-      setLocation({ latitude: 0, longitude: 0 });
-    }
-  } else {
-    field.onChange(false);
-    setLocation({ latitude: 0, longitude: 0 });
-  }
-}}
+    useEffect(() => {
+      setIsChecked(field.value);
+    }, [field.value]);
 
-                  />
-                </FormControl>
-              </FormItem>
-            )}
-          />
+    const handleCheckedChange = async (checked: boolean) => {
+      if (checked) {
+        const granted = await getLocation().catch(() => false);
+        if (granted) {
+          setIsChecked(true);
+          field.onChange(true);
+        } else {
+          setIsChecked(false);
+          field.onChange(false);
+          setLocation({ latitude: 0, longitude: 0 });
+        }
+      } else {
+        setIsChecked(false);
+        field.onChange(false);
+        setLocation({ latitude: 0, longitude: 0 });
+      }
+    };
+
+    return (
+      <FormItem className="flex flex-row items-center justify-between rounded-lg border p-4">
+        <div className="space-y-0.5">
+          <FormLabel className="text-base">
+            Use my Current GPS position{" "}
+          </FormLabel>
+          <FormDescription>
+            Exact GPS coordinates of the reported issue make it easier to locate.
+          </FormDescription>
+        </div>
+        <FormControl>
+          <Switch checked={isChecked} onCheckedChange={handleCheckedChange} />
+        </FormControl>
+      </FormItem>
+    );
+  }}
+/>
+
+             
           <FormField
   control={form.control}
   name="image"

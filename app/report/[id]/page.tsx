@@ -107,6 +107,10 @@ export default async function ReportPage({ params }: { params: tParams }) {
             </a>
           </div>
         </div>
+        <div
+  className="transform-gpu"
+  style={{ transform: "translateZ(0)", willChange: "transform" }}
+>
         <div className="border-2  border-gray-400 mt-10 flex justify-center items-center gap-5 py-5 rounded-2xl flex-col  px-3 max-w-2xl">
           {report.resolutionRequest ? (
             <h2 className="font-medium">
@@ -121,7 +125,7 @@ export default async function ReportPage({ params }: { params: tParams }) {
               <ReportPageUpload id={id} />
             </>
           )}
-        </div>
+       </div> </div>
       </div>
     </div>
   );

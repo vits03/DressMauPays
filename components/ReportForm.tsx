@@ -75,6 +75,7 @@ export function ReportForm() {
       locality: undefined,
       address: "",
       urgency: "medium",
+      gps:false,
       image: undefined! as FileList, // Type assertion for initialization
     },
   });

@@ -112,7 +112,7 @@ export default async function ReportPage({ params }: { params: tParams }) {
           </div>
         </div>
       
-        <div className="border-2  border-gray-400 mt-10 flex justify-center items-center gap-5 py-5 rounded-2xl flex-col  px-3 max-w-2xl">
+        <div className="border-2  overflow-hidden border-gray-400 mt-10 flex justify-center items-center gap-5 py-5 rounded-2xl flex-col  px-3 max-w-2xl">
           {report.resolutionRequest ? (
             <h2 className="font-medium">
               A resolution request has already been submitted.Review Pending.

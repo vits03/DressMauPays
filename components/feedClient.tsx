@@ -15,7 +15,7 @@ import { Button } from "./ui/button";
 import ReportCard from "./ReportCard";
 import ReportCardSkeleton from "./reportCardSkeleton";
 
-const PAGE_SIZE = 5;
+const PAGE_SIZE = 10;
 interface ReportData {
   title: string;
   description: string;

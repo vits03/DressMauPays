@@ -97,7 +97,7 @@ export default async function ReportPage({ params }: { params: tParams }) {
             >
               <button
                 disabled={!isGpsPresent()}
-                className={`flex gap-2 py-3   hover:bg-gray-400  px-5 border-2 w-fit rounded-xl ${
+                className={`flex gap-2 py-2   hover:bg-gray-400  px-5 border-2 w-fit rounded-xl ${
                   !isGpsPresent() ? "opacity-35 disabled" : "bg-gray-300"
                 }`}
               >
@@ -109,8 +109,8 @@ export default async function ReportPage({ params }: { params: tParams }) {
         </div>
         <div className="border-2  border-gray-400 mt-10 flex justify-center items-center gap-5 py-5 rounded-2xl flex-col  px-3 max-w-2xl">
           {report.resolutionRequest ? (
-            <h2>
-              A resolution request has already been submitted.Pending Review
+            <h2 className="font-medium">
+              A resolution request has already been submitted.Review Pending.
             </h2>
           ) : (
             <>

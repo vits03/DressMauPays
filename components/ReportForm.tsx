@@ -349,20 +349,22 @@ export function ReportForm() {
                   <Switch
                     checked={field.value}
                     onCheckedChange={async (checked) => {
-                      if (checked) {
-                        const granted = await getLocation();
-                        if (granted) {
-                          field.onChange(true);
-                        } else {
-                          // User denied location; reset switch to false
-                          field.onChange(false);
-                          setLocation({ latitude: 0, longitude: 0 });
-                        }
-                      } else {
-                        field.onChange(false);
-                        setLocation({ latitude: 0, longitude: 0 });
-                      }
-                    }}
+  if (checked) {
+    const granted = await getLocation();
+
+    if (granted) {
+      field.onChange(true);
+    } else {
+      // Prevent toggle staying on if denied
+      setTimeout(() => field.onChange(false), 0);
+      setLocation({ latitude: 0, longitude: 0 });
+    }
+  } else {
+    field.onChange(false);
+    setLocation({ latitude: 0, longitude: 0 });
+  }
+}}
+
                   />
                 </FormControl>
               </FormItem>

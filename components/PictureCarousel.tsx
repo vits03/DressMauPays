@@ -23,14 +23,22 @@ export function CarouselDemo({ imageURLs }: CarouselDemoProps) {
             <CarouselItem key={index}>
               <Card className="overflow-hidden rounded-xl shadow-md">
                 <CardContent className="p-0 relative aspect-[4/3] bg-white">
-                <Link href={imageURL}>
-                  <Image
-                    src={imageURL || "https://placehold.co/800x600?text=No+Image"}
-                    alt={`Report image ${index + 1}`}
-                    fill
-                    className="object-contain w-full  h-full"
-                    sizes="(max-width: 768px) 100vw, 800px"
-                  /></Link>
+                  <Link href={imageURL}>
+                    <div className="relative w-full h-64">
+                      {" "}
+                      {/* ✅ MUST BE RELATIVE and have dimensions */}
+                      <Image
+                        src={
+                          imageURL ||
+                          "https://placehold.co/800x600?text=No+Image"
+                        }
+                        alt={`Report image ${index + 1}`}
+                        fill
+                        className="object-contain"
+                        sizes="(max-width: 768px) 100vw, 800px"
+                      />
+                    </div>
+                  </Link>
                 </CardContent>
               </Card>
             </CarouselItem>

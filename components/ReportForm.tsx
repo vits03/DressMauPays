@@ -332,29 +332,29 @@ export function ReportForm() {
               </FormItem>
             )}
           />
-         <FormField
+        <FormField
   control={form.control}
   name="gps"
   render={({ field }) => {
-    const [isChecked, setIsChecked] = useState(field.value);
+    const [isChecked, setIsChecked] = useState(!!field.value); // Force boolean
 
     useEffect(() => {
-      setIsChecked(field.value);
+      setIsChecked(!!field.value);
     }, [field.value]);
 
-    const handleCheckedChange = async (checked: boolean) => {
+    const handleToggle = async (checked: boolean) => {
+      setIsChecked(checked); // immediately reflect UI change
+
       if (checked) {
         const granted = await getLocation().catch(() => false);
         if (granted) {
-          setIsChecked(true);
           field.onChange(true);
         } else {
-          setIsChecked(false);
+          setIsChecked(false); // revert if denied
           field.onChange(false);
           setLocation({ latitude: 0, longitude: 0 });
         }
       } else {
-        setIsChecked(false);
         field.onChange(false);
         setLocation({ latitude: 0, longitude: 0 });
       }
@@ -363,15 +363,16 @@ export function ReportForm() {
     return (
       <FormItem className="flex flex-row items-center justify-between rounded-lg border p-4">
         <div className="space-y-0.5">
-          <FormLabel className="text-base">
-            Use my Current GPS position{" "}
-          </FormLabel>
+          <FormLabel className="text-base">Use my Current GPS position</FormLabel>
           <FormDescription>
-            Exact GPS coordinates of the reported issue make it easier to locate.
+            Exact GPS coordinates of the reported issues make it easier to locate.
           </FormDescription>
         </div>
         <FormControl>
-          <Switch checked={isChecked} onCheckedChange={handleCheckedChange} />
+          <Switch
+            checked={isChecked}           // ✅ always boolean
+            onCheckedChange={handleToggle}
+          />
         </FormControl>
       </FormItem>
     );

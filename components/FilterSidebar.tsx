@@ -18,7 +18,7 @@ export default function FilterSidebar({setFilters}:FilterSidebarProps) {
     <div className="justify-items-end mb-3">
       {/* Mobile Filter Button (hidden on md and up) */}
       <button
-        className="md:hidden flex gap-2 p-2 bg-primary text-white rounded-md"
+        className="hide-on-md flex gap-2 p-2 bg-primary text-white rounded-md"
         onClick={() => setIsMobileFilterOpen(true)}
       >
           <Funnel /> <span>Filter</span>
@@ -26,7 +26,7 @@ export default function FilterSidebar({setFilters}:FilterSidebarProps) {
 
       {/* Mobile Slide-in Sidebar */}
       <div
-        className={`fixed inset-0 z-50 transition-opacity md:hidden ${
+        className={`fixed inset-0 z-50 transition-opacity hide-on-md ${
           isMobileFilterOpen ? "opacity-100 pointer-events-auto" : "opacity-0 pointer-events-none"
         }`}
       >
@@ -58,7 +58,7 @@ export default function FilterSidebar({setFilters}:FilterSidebarProps) {
       </div>
 
       {/* Full Sidebar on Desktop (hidden on mobile) */}
-      <div className="hidden md:block w-60 md:40 shrink-0 p-4 border-2 shadow-2xl rounded-2xl mr-5 border-gray-200 ">
+      <div className="hidden block-on-md w-60 md:35 shrink-0 p-4 border-2 shadow-2xl rounded-2xl mr-5 border-gray-200 ">
         <h2 className="text-xl font-semibold mb-10">Filter Reports</h2>
         <FilterForm  setIsMobileFilterOpen={setIsMobileFilterOpen}  setFilters={setFilters}  />
       </div>

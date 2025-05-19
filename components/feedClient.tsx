@@ -111,8 +111,8 @@ const FeedClient = ({ filters }: Props) => {
   }, [filters]);
 
   return (
-    <div className="flex flex-col">
-    <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-3 gap-4 justify-items-center">
+    <div className="flex flex-col ">
+    <div className="my-grid gap-4 justify-items-center">
       {loading && reports.length === 0
         ? Array.from({ length: 6 }).map((_, i) => <ReportCardSkeleton key={i} />)
         : reports.map((report) => (

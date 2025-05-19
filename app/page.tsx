@@ -29,7 +29,7 @@ console.log(filters)
   /// get all items from firebase where reports = ( isApproved=true && isResolved=false)
   return (
     <div className="w-95/100 border-1 p-5 min-h-screen mx-auto max-w-7xl md:w-9/10">
-    <div className="flex  md:flex-row flex-col">
+    <div className="flex justify-center sidebar-md flex-col">
       <FilterSidebar setFilters={setFilters}/>
       <FeedClient  filters={filters}/>
 

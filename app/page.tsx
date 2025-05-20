@@ -1,44 +1,67 @@
 
-"use client"
 import Image from "next/image";
-
+import {
+  collection,
+  query,
+  orderBy,
+  limit,
+  getDocs,
+  startAfter,
+  
+  where,
+  DocumentData,
+} from "firebase/firestore";
 
 import { Button } from "@/components/ui/button"
 import ReportCard from "@/components/ReportCard";
 import FilterSidebar from "@/components/FilterSidebar";
 import FeedClient from "@/components/feedClient";
-import { Suspense, useEffect } from "react";
+import { db } from "@/lib/firebase";
+
 import ReportCardSkeleton from "@/components/reportCardSkeleton";
-import { useState } from "react";
-  type Filters = {
-  village: string | null;
-  urgency: string | null;
-  order: string | null;
-};
-export default function Home() {
+import { GetStaticProps } from "next";
+export const revalidate = 60; // ✅ Enables ISR every 60s
 
-const [filters, setFilters] = useState<Filters>({
-  village: null,
-  urgency: null,
-  order: null,
-});
+type HomePageProps = {
+  reports : DocumentData[];
+}
+  const getReports = async () => {
+   
+    let q: any = query(
+      collection(db, "reports"),
+      where("isApproved", "==", true),
+      where("isResolved", "==", false)
+    );
+    q = query(q, orderBy("createdAt", "desc"), limit(6));
+    const snap = await getDocs(q);
+    const docs = snap.docs.map((doc) => ({ id: doc.id, ...(doc.data() as DocumentData) }));
+     return snap.docs.map((doc) => {
+    const data = doc.data() as DocumentData;
 
-  useEffect(()=>{
-console.log(filters)
-  },[filters])
+    return {
+      id: doc.id,
+      ...data,
+      createdAt: data.createdAt.toDate() as Date ?? null, // 🔁 Convert Firestore Timestamp to string
+     resolvedAt: null, 
+    };
+  });
+  };
+
+export default async function Home() {
+const reports: DocumentData[] = await getReports(); // ✅
+
+
   /// get all items from firebase where reports = ( isApproved=true && isResolved=false)
   return (
     <div className="w-95/100 border-1 p-5 min-h-screen mx-auto max-w-7xl md:w-9/10">
-    <div className="flex justify-center sidebar-md flex-col">
-      <FilterSidebar setFilters={setFilters}/>
-      <FeedClient  filters={filters}/>
+      <FeedClient initialReports={reports} />
 
   
 
 
      
     </div>
-    </div>
+    
   )
 }
 

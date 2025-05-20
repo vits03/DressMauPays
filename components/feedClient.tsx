@@ -1,5 +1,5 @@
 "use client";
-import { useEffect, useState } from "react";
+import { useEffect, useState,useRef } from "react";
 import {
   collection,
   query,
@@ -14,8 +14,8 @@ import { db } from "@/lib/firebase";
 import { Button } from "./ui/button";
 import ReportCard from "./ReportCard";
 import ReportCardSkeleton from "./reportCardSkeleton";
-
-const PAGE_SIZE = 10;
+import FilterSidebar from "./FilterSidebar";
+const PAGE_SIZE = 7;
 interface ReportData {
   title: string;
   description: string;
@@ -26,6 +26,10 @@ interface ReportData {
   address: string;
   // add other fields here as needed
 }
+
+type FeedClientProps = {
+  initialReports: DocumentData[];
+};
 type Filters = {
   village: string | null;
   urgency: string | null;
@@ -36,8 +40,32 @@ type Props = {
   filters: Filters;
 };
 
-const FeedClient = ({ filters }: Props) => {
-  const [reports, setReports] = useState<DocumentData[]>([]);
+const FeedClient = ({initialReports}:FeedClientProps) => {
+    const [filters, setFilters] = useState<Filters>({
+      village: null,
+      urgency: null,
+      order: null,
+    });
+    useEffect(() => {
+      setLastDoc(initialReports[initialReports.length - 1]);
+      setHasMore(initialReports.length === PAGE_SIZE);
+      console.log("the boolean for first render is",isFirstRender.current)
+  if (isFirstRender.current) {
+    isFirstRender.current = false;
+    return; // ❌ Skip first render
+  }
+
+  // ✅ Run only when `filters` changes (not on mount)
+  fetchInitial();
+
+}, [filters]); 
+
+const isFirstRender =  useRef(true);
+    
+      useEffect(()=>{
+    console.log(filters)
+      },[filters])
+  const [reports, setReports] = useState<DocumentData[]>(initialReports);
   const [lastDoc, setLastDoc] = useState<any>(null);
   const [loading, setLoading] = useState(false);
   const [hasMore, setHasMore] = useState(true);
@@ -68,7 +96,7 @@ const FeedClient = ({ filters }: Props) => {
     }
 
     const snap = await getDocs(q);
-    const docs = snap.docs.map((doc) => ({ id: doc.id, ...(doc.data() as ReportData) }));
+    const docs = snap.docs.map((doc) => ({ id: doc.id, ...(doc.data() as DocumentData) }));
     setReports(docs);
     setLastDoc(snap.docs[snap.docs.length - 1]);
     setHasMore(snap.docs.length === PAGE_SIZE);
@@ -106,11 +134,19 @@ const FeedClient = ({ filters }: Props) => {
     setLoading(false);
   };
 
+  /** 
   useEffect(() => {
     fetchInitial();
-  }, [filters]);
+  }, [filters]);*/
 
   return (
+     <>
+     <p className="ml-7 text-lg font-semibold">showing {reports.length} results</p>
+        <div className="flex justify-center sidebar-md flex-col">
+      
+              <FilterSidebar setFilters={setFilters}/>
+        
+
     <div className="flex flex-col ">
     <div className="my-grid gap-4 justify-items-center">
       {loading && reports.length === 0
@@ -137,6 +173,8 @@ const FeedClient = ({ filters }: Props) => {
         </Button>
       )}
       </div>
+      </div>
+      </>
   );
 };
 

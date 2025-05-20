@@ -3,17 +3,31 @@ import Image from 'next/image'
 import { Badge } from "@/components/ui/badge"
 import Link from 'next/link'
 import { Timestamp } from "firebase/firestore"
-
+import { FirebaseApp } from 'firebase/app'
+import { create } from 'domain'
 type Report = {
   id: string;
   imageURLs: string[];
   locality: string;
   urgency:string;
-  createdAt: Timestamp;
+  createdAt: Timestamp ;
   title: string;
   description: string;
 };
+function toReadableDate(input: any): string {
+  if (!input) return "No date";
 
+  // Case 1: Firestore Timestamp
+  if (typeof input === "object" && "seconds" in input && "nanoseconds" in input) {
+    return new Timestamp(Number(input.seconds), Number(input.nanoseconds))
+      .toDate()
+      .toLocaleDateString("en-GB");
+  }
+
+  // Case 2: ISO string or JS Date
+  const date = new Date(input);
+  return isNaN(date.getTime()) ? "Invalid date" : date.toLocaleDateString("en-GB");
+}
 const ReportCard = ({ id, imageURLs=[], locality, createdAt, title, description ,urgency}: Report) => {
   console.log("ReportCard props", { id, imageURLs, locality, createdAt, title, description });
 
@@ -38,7 +52,7 @@ const ReportCard = ({ id, imageURLs=[], locality, createdAt, title, description 
           <div className="badge-cont my-3 flex justify-between">
             <Badge className='rounded-2xl bg-gray-800'  >{locality}</Badge>
             <p className='text-xs text-gray-700 border-2 flex flex-col justify-center  border-gray-800 rounded-2xl px-2'>
-              {createdAt.toDate().toLocaleDateString("en-GB")}
+           {toReadableDate(createdAt)}
             </p>
           </div>
         </div>

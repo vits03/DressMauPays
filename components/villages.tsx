@@ -37,6 +37,7 @@ const villages = [
     { value: "St hubert", label: "St hubert" },
     { value: "Saint julien d'hotman", label: "Saint julien d'hotman" },
     { value: "Souillac", label: "Souillac" },
+    {value:"Belle Vue Maurel", label:"Belle Vue Maurel"},
     { value: "Reduit", label: "Reduit" },
     { value: "Rose belle", label: "Rose belle" },
     { value: "Riviere du rempart", label: "Riviere du rempart" },

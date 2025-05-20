@@ -24,7 +24,7 @@ export function CarouselDemo({ imageURLs }: CarouselDemoProps) {
               <Card className="overflow-hidden rounded-xl shadow-md">
                 <CardContent className="p-0 relative aspect-[4/3] bg-white">
                   <Link href={imageURL}>
-                    <div className="relative w-full h-64">
+                    <div className="relative w-full aspect-[4/3]">
                       {" "}
                       {/* ✅ MUST BE RELATIVE and have dimensions */}
                       <Image

@@ -212,7 +212,7 @@ export function ReportForm() {
                         variant="outline"
                         role="combobox"
                         className={cn(
-                          "w-[200px] justify-between",
+                          "min-w-[200px] justify-between  overflow-hidden",
                           !field.value && "text-muted-foreground"
                         )}
                       >
@@ -225,7 +225,7 @@ export function ReportForm() {
                       </Button>
                     </FormControl>
                   </PopoverTrigger>
-                  <PopoverContent className="w-[200px] p-0">
+                  <PopoverContent className="min-w-[200px] p-0">
                     <Command>
                       <CommandInput placeholder="Search locality..." />
                       <CommandList>

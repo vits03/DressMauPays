@@ -17,7 +17,7 @@ import ReportCardSkeleton from "./reportCardSkeleton";
 import FilterSidebar from "./FilterSidebar";
 import { useSessionStorage } from "@uidotdev/usehooks";
 
-const PAGE_SIZE = 10;
+const PAGE_SIZE = 9;
 interface ReportData {
   title: string;
   description: string;
@@ -60,7 +60,20 @@ const FeedClient = ({initialReports}:FeedClientProps) => {
       urgency: null,
       order: null,
     });
-    useEffect(() => { 
+   
+
+
+
+const isFirstRender =  useRef(true);
+    
+      useEffect(()=>{
+    console.log("session filters are",sessionFilters)
+      },[sessionFilters])
+  const [reports, setReports] = useState<DocumentData[]>(initialReports);
+  const [lastDoc, setLastDoc] = useState<any>(null);
+  const [loading, setLoading] = useState(false);
+  const [hasMore, setHasMore] = useState(true);
+ useEffect(() => { 
       setLoading(true);
       setLastDoc(initialReports[initialReports.length - 1]);
       setHasMore(initialReports.length === PAGE_SIZE);
@@ -78,19 +91,6 @@ const FeedClient = ({initialReports}:FeedClientProps) => {
  
 
 }, [filters]); 
-
-
-
-const isFirstRender =  useRef(true);
-    
-      useEffect(()=>{
-    console.log("session filters are",sessionFilters)
-      },[sessionFilters])
-  const [reports, setReports] = useState<DocumentData[]>(initialReports);
-  const [lastDoc, setLastDoc] = useState<any>(null);
-  const [loading, setLoading] = useState(false);
-  const [hasMore, setHasMore] = useState(true);
-
 useEffect(()=>{
   const {village,urgency,order,noReports}=sessionFilters
   if (filters.order === null){

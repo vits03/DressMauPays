@@ -114,13 +114,14 @@ const form = useForm<FilterFormValues>({
                                     <CommandItem
                                       key={village.value}
                                       value={village.value}
+                                      
                                       onSelect={() => {
                                         form.setValue("locality", village.value);
                                       }}
                                     >
                                       <Check
                                         className={cn(
-                                          "mr-2 h-4 w-4",
+                                          "mr-2 h-4 w-4 text-primary-foreground",
                                           field.value === village.value
                                             ? "opacity-100"
                                             : "opacity-0"

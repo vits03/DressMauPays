@@ -32,7 +32,7 @@ type HomePageProps = {
       where("isApproved", "==", true),
       where("isResolved", "==", false)
     );
-    q = query(q, orderBy("createdAt", "desc"), limit(6));
+    q = query(q, orderBy("createdAt", "desc"), limit(9));
     const snap = await getDocs(q);
     const docs = snap.docs.map((doc) => ({ id: doc.id, ...(doc.data() as DocumentData) }));
      return snap.docs.map((doc) => {

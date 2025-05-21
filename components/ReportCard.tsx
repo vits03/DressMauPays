@@ -33,8 +33,9 @@ const ReportCard = ({ id, imageURLs=[], locality, createdAt, title, description 
 
   return (
     <Link href={`/report/${id}`}>
-      <div className={`card-container relative urgency-${urgency}  shadow-2xl  w-full max-w-[19rem] border-2 border-gray-500 rounded-[12px] flex-shrink-0`}>
+      <div className={`card-container border-2 border-primary relative urgency-${urgency} bg-white shadow-2xl  w-full max-w-[19rem]  border-gray-500 rounded-[12px] flex-shrink-0`}>
        <Image
+       priority
   className="rounded-lg w-full h-[250px] object-cover"
   src={imageURLs[0]}
   placeholder="blur"
@@ -50,8 +51,8 @@ const ReportCard = ({ id, imageURLs=[], locality, createdAt, title, description 
             {description}
           </p>
           <div className="badge-cont my-3 flex justify-between">
-            <Badge className='rounded-2xl bg-gray-800'  >{locality}</Badge>
-            <p className='text-xs text-gray-700 border-2 flex flex-col justify-center  border-gray-800 rounded-2xl px-2'>
+            <Badge className='rounded-2xl bg-primary'  >{locality}</Badge>
+            <p className='text-xs text-primary border-primary border-2 flex flex-col justify-center  rounded-2xl px-2'>
            {toReadableDate(createdAt)}
             </p>
           </div>

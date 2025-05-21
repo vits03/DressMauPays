@@ -15,6 +15,8 @@ import { Button } from "./ui/button";
 import ReportCard from "./ReportCard";
 import ReportCardSkeleton from "./reportCardSkeleton";
 import FilterSidebar from "./FilterSidebar";
+import { useSessionStorage } from "@uidotdev/usehooks";
+
 const PAGE_SIZE = 7;
 interface ReportData {
   title: string;
@@ -35,12 +37,24 @@ type Filters = {
   urgency: string | null;
   order: string | null;
 };
+type sessionFilters = {
+  village: string | null;
+  urgency: string | null;
+  order: string | null;
+  noReports: number | null;
+};
 
 type Props = {
   filters: Filters;
 };
 
 const FeedClient = ({initialReports}:FeedClientProps) => {
+   const [sessionFilters, setSessionFilters] = useSessionStorage<sessionFilters>("filters", {
+      village: null,
+      urgency: null,
+      order: null,
+      noReports: 0,
+   })
     const [filters, setFilters] = useState<Filters>({
       village: null,
       urgency: null,
@@ -50,32 +64,50 @@ const FeedClient = ({initialReports}:FeedClientProps) => {
       setLastDoc(initialReports[initialReports.length - 1]);
       setHasMore(initialReports.length === PAGE_SIZE);
       console.log("the boolean for first render is",isFirstRender.current)
+      console.log("initial filter is ",filters.order=== null);
   if (isFirstRender.current) {
     isFirstRender.current = false;
     return; // ❌ Skip first render
   }
-
+  if (filters.order !== null){
+     fetchInitial();
+  }
   // ✅ Run only when `filters` changes (not on mount)
-  fetchInitial();
+ 
 
 }, [filters]); 
+
+
 
 const isFirstRender =  useRef(true);
     
       useEffect(()=>{
-    console.log(filters)
-      },[filters])
+    console.log("session filters are",sessionFilters)
+      },[sessionFilters])
   const [reports, setReports] = useState<DocumentData[]>(initialReports);
   const [lastDoc, setLastDoc] = useState<any>(null);
   const [loading, setLoading] = useState(false);
   const [hasMore, setHasMore] = useState(true);
 
+useEffect(()=>{
+  const {village,urgency,order,noReports}=sessionFilters
+  if (filters.order === null){
+   setFilters({village,urgency,order})
+
+  }
+  else {
+ setSessionFilters({ ...filters, noReports: reports.length })
+  }
+
+},[lastDoc])
+
   const fetchInitial = async () => {
+    let productSize=0;
     setLoading(true);
     setReports([]);
     setLastDoc(null);
     setHasMore(true);
-
+ 
     let q: any = query(
       collection(db, "reports"),
       where("isApproved", "==", true),
@@ -144,7 +176,7 @@ const isFirstRender =  useRef(true);
      <p className="ml-7 text-lg font-semibold">showing {reports.length} results</p>
         <div className="flex justify-center sidebar-md flex-col">
       
-              <FilterSidebar setFilters={setFilters}/>
+              <FilterSidebar filters={filters} setFilters={setFilters}/>
         
 
     <div className="flex flex-col ">

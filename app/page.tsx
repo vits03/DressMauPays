@@ -11,7 +11,7 @@ import {
   where,
   DocumentData,
 } from "firebase/firestore";
-
+import FeedClientWrapper from "@/components/FeedClientWrapper";
 import { Button } from "@/components/ui/button"
 import ReportCard from "@/components/ReportCard";
 import FilterSidebar from "@/components/FilterSidebar";
@@ -54,7 +54,7 @@ const reports: DocumentData[] = await getReports(); // ✅
   /// get all items from firebase where reports = ( isApproved=true && isResolved=false)
   return (
     <div className="w-95/100 border-1 p-5 min-h-screen mx-auto max-w-7xl md:w-9/10">
-      <FeedClient initialReports={reports} />
+      <FeedClientWrapper initialReports={reports} />
 
   
 

@@ -2,6 +2,13 @@
 import { useState } from "react";
 import FilterForm from "./FilterForm";
 import { Funnel } from "lucide-react";
+
+
+//create a  use state hook to save filter choices and products no to a state
+//the hook 
+
+
+
 type Filters = {
   village: string | null;
   urgency: string | null;
@@ -10,13 +17,15 @@ type Filters = {
 
 type FilterSidebarProps = {
   setFilters: React.Dispatch<React.SetStateAction<Filters>>;
+  filters:Filters,
 };
-export default function FilterSidebar({setFilters}:FilterSidebarProps) {
+export default function FilterSidebar({setFilters,filters}:FilterSidebarProps) {
   const [isMobileFilterOpen, setIsMobileFilterOpen] = useState(false);
 
   return (
     <div className="justify-items-end mb-3">
       {/* Mobile Filter Button (hidden on md and up) */}
+
       <button
         className="hide-on-md flex gap-2 p-2 bg-primary text-white rounded-md"
         onClick={() => setIsMobileFilterOpen(true)}

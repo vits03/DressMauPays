@@ -53,7 +53,7 @@ type MobileFilter = {
 
 type FilterFormProps = FilterSidebarProps & MobileFilter;
 export default function FilterForm({ setFilters, setIsMobileFilterOpen }: FilterFormProps) {
-  const form = useForm<FilterFormValues>({
+const form = useForm<FilterFormValues>({
     resolver: zodResolver(FilterSchema),
     defaultValues: {
       urgency: "all",
@@ -61,6 +61,7 @@ export default function FilterForm({ setFilters, setIsMobileFilterOpen }: Filter
       locality:"selectAll"
     },
   });
+
 
   const onSubmit = (data: FilterFormValues) => {
     console.log("Filters:", data);

@@ -20,7 +20,7 @@ import { db } from "@/lib/firebase";
 
 import ReportCardSkeleton from "@/components/reportCardSkeleton";
 import { GetStaticProps } from "next";
-export const revalidate = 60; // ✅ Enables ISR every 60s
+export const revalidate = 3600; // ✅ Enables ISR every 60s
 
 type HomePageProps = {
   reports : DocumentData[];

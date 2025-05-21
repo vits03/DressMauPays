@@ -49,6 +49,8 @@ type Props = {
 };
 
 const FeedClient = ({initialReports}:FeedClientProps) => {
+  const isFirstRender =  useRef(true);
+
    const [sessionFilters, setSessionFilters] = useSessionStorage<sessionFilters>("filters", {
       village: null,
       urgency: null,
@@ -62,9 +64,21 @@ const FeedClient = ({initialReports}:FeedClientProps) => {
     });
    
 
+async function getLastDoc() {
+    let q: any = query(
+      collection(db, "reports"),
+      where("isApproved", "==", true),
+      where("isResolved", "==", false),
+      orderBy("createdAt", "desc"),
+    limit(PAGE_SIZE));
 
+    const snapshot = await getDocs(q);
+   console.log("therreal docc is",snapshot.docs[snapshot.docs.length - 1])
+    setLastDoc(snapshot.docs[snapshot.docs.length - 1]);
+  
 
-const isFirstRender =  useRef(true);
+}
+
     
       useEffect(()=>{
     console.log("session filters are",sessionFilters)
@@ -73,18 +87,26 @@ const isFirstRender =  useRef(true);
   const [lastDoc, setLastDoc] = useState<any>(null);
   const [loading, setLoading] = useState(false);
   const [hasMore, setHasMore] = useState(true);
- useEffect(() => { 
-      setLoading(true);
-      setLastDoc(initialReports[initialReports.length - 1]);
+
+useEffect(() => {
+  setLoading(true);
+      //(initialReports[initialReports.length - 1]);
       setHasMore(initialReports.length === PAGE_SIZE);
-     
+  getLastDoc();
+  setLoading(false);
+},[]);
+
+ useEffect(() => { 
+   
+  // getLastDoc();
       console.log("the boolean for first render is",isFirstRender.current)
       console.log("initial filter is ",filters.order=== null);
-  if (isFirstRender.current) {
+ if (isFirstRender.current) {
     isFirstRender.current = false;
     return; // ❌ Skip first render
-  }
+  } 
   if (filters.order !== null){
+     console.log("fetch entr")
      fetchInitial();
   }
   // ✅ Run only when `filters` changes (not on mount)
@@ -92,6 +114,7 @@ const isFirstRender =  useRef(true);
 
 }, [filters]); 
 useEffect(()=>{
+  console.log("the last doc is",lastDoc)
   const {village,urgency,order,noReports}=sessionFilters
   if (filters.order === null){
    setFilters({village,urgency,order})

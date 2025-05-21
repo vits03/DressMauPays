@@ -17,7 +17,7 @@ import ReportCardSkeleton from "./reportCardSkeleton";
 import FilterSidebar from "./FilterSidebar";
 import { useSessionStorage } from "@uidotdev/usehooks";
 
-const PAGE_SIZE = 7;
+const PAGE_SIZE = 10;
 interface ReportData {
   title: string;
   description: string;
@@ -60,9 +60,11 @@ const FeedClient = ({initialReports}:FeedClientProps) => {
       urgency: null,
       order: null,
     });
-    useEffect(() => {
+    useEffect(() => { 
+      setLoading(true);
       setLastDoc(initialReports[initialReports.length - 1]);
       setHasMore(initialReports.length === PAGE_SIZE);
+     
       console.log("the boolean for first render is",isFirstRender.current)
       console.log("initial filter is ",filters.order=== null);
   if (isFirstRender.current) {

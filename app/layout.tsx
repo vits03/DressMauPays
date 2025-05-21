@@ -5,7 +5,7 @@ import { Inter } from "next/font/google";
 import { Montserrat } from "next/font/google";
 import Navbar from "@/components/navbar";
 import "./globals.css";
-
+import Footer from "@/components/footer";
 
 
 
@@ -30,12 +30,11 @@ export default function RootLayout({
   return (
     <html lang="en"  className={inter.variable}>
       <body
-      
       >
         <Navbar/>
    {children}
 
-       
+       <Footer/>
       </body>
     </html>
   );

@@ -7,13 +7,13 @@ import { Camera, AlertCircle, Home,CircleChevronLeft,CircleUserRound   } from "l
 const Navbar = () => {
   return (
     <div className='w-full  '>
-        <nav className='  py-4 px-5 bg-amber-300'>
+        <nav className='  py-4 px-5 bg-accent'>
         
           <div className='max-w-7xl justify-between flex items-center mx-auto '>
             <div className="logo"><Link href="/">
             <Image src={logo} alt="logo" className='w-full h-10'/>
             </Link></div>
-            <Link href="/add-report"><Button>Report  Issue</Button></Link>    
+            <Link href="/add-report"><Button >Report  Issue</Button></Link>    
             
          
           </div>

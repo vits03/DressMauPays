@@ -12,7 +12,7 @@ const AddReport = () => {
   loginAnonymously()
  },[])
   return (
-    <div className="w-95/100 border-1 p-5 min-h-screen mx-auto max-w-6xl md:w-9/10">
+    <div className="w-95/100 md:border-x-2 border-gray-500 p-5 min-h-screen mx-auto max-w-6xl md:w-9/10">
 
     <div>
       <Link href="/">

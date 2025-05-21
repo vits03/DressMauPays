@@ -23,7 +23,7 @@ export default function FilterSidebar({setFilters,filters}:FilterSidebarProps) {
   const [isMobileFilterOpen, setIsMobileFilterOpen] = useState(false);
 
   return (
-    <div className="justify-items-end mb-3">
+    <div className="justify-items-end mb-3 ">
       {/* Mobile Filter Button (hidden on md and up) */}
 
       <button

@@ -17,12 +17,12 @@ type CarouselDemoProps = {
 export function CarouselDemo({ imageURLs }: CarouselDemoProps) {
   return (
     <div className="w-full max-w-xl mx-auto">
-      <Carousel className="w-full">
+      <Carousel className="w-full ">
         <CarouselContent>
           {imageURLs.map((imageURL, index) => (
             <CarouselItem key={index}>
-              <Card className="overflow-hidden rounded-xl shadow-md">
-                <CardContent className="p-0 relative aspect-[4/3] bg-white">
+              <Card className="overflow-hidden rounded-xl bg-background shadow-md">
+                <CardContent className="p-0 relative aspect-[4/3] bg-background">
                   <Link href={imageURL}>
                     <div className="relative w-full aspect-[4/3]">
                       {" "}

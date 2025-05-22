@@ -87,10 +87,11 @@ const form = useForm<FilterFormValues>({
                           <PopoverTrigger asChild>
                             <FormControl>
                               <Button
+                              
                                 variant="outline"
                                 role="combobox"
                                 className={cn(
-                                  "w-[200px] justify-between",
+                                  "w-[200px] justify-between bg-white hover:bg-primary hover:text-primary-foreground ",
                                   !field.value && "text-muted-foreground"
                                 )}
                               >

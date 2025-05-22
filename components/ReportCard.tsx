@@ -42,6 +42,7 @@ const ReportCard = ({ id, imageURLs=[], locality, createdAt, title, description 
   blurDataURL="https://placehold.co/800x600.png"
   width={800}
   height={600}
+  
   alt="Report Image"
 />
 

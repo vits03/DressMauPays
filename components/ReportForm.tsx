@@ -212,7 +212,7 @@ export function ReportForm() {
                         variant="outline"
                         role="combobox"
                         className={cn(
-                          "min-w-[200px] justify-between  overflow-hidden",
+                          "min-w-[200px] justify-between hover:bg-primary hover:text-primary-foreground overflow-hidden",
                           !field.value && "text-muted-foreground"
                         )}
                       >
@@ -412,29 +412,48 @@ export function ReportForm() {
       <FormItem>
         <FormLabel>Images (max 2)*</FormLabel>
         <FormControl>
-          <div>
-            <Input
-              ref={inputRef}
-              type="file"
-              multiple
-              accept="image/*"
-              className="py-1 border-2 border-gray px-5 md:w-2/3 w-full"
-              onChange={handleFileChange}
-            />
+<div className="space-y-4">
+  {/* File Input Container */}
+  <div className="relative">
+    <label className="block">
+      <span className="sr-only">Choose images</span>
+      <input
+        ref={inputRef}
+        type="file"
+        multiple
+        accept="image/*"
+        onChange={handleFileChange}
+        className="block w-fit text-sm text-gray-500 border-2 p-2 rounded-full  border-gray-500
+          file:mr-4 file:py-2 file:px-3
+          file:rounded-full file:border-0
+          file:text-xs file:font-semibold
+          file:bg-primary file:text-primary-foreground
+          hover:file:opacity-80
+          focus:outline-none focus:ring-2 "
+      />
+    </label>
+  </div>
 
-            {previews.length > 0 && (
-              <div className="flex gap-4 mt-4">
-                {previews.map((src, idx) => (
-                  <img
-                    key={idx}
-                    src={src}
-                    alt={`preview-${idx}`}
-                    className="w-24 h-24 object-cover rounded-lg border"
-                  />
-                ))}
-              </div>
-            )}
+  {/* Image Previews */}
+  {previews.length > 0 && (
+    <div className="mt-4">
+      <h3 className="text-sm font-medium text-gray-700 mb-2">
+        Selected Images ({previews.length})
+      </h3>
+      <div className="grid grid-cols-3 gap-3 sm:grid-cols-4 md:grid-cols-5">
+        {previews.map((src, idx) => (
+          <div key={idx} className="relative aspect-square">
+            <img
+              src={src}
+              alt={`preview-${idx}`}
+              className="w-full h-full object-cover rounded-lg border border-gray-200 shadow-sm"
+            />
           </div>
+        ))}
+      </div>
+    </div>
+  )}
+</div>
         </FormControl>
         <FormMessage />
       </FormItem>

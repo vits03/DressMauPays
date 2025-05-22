@@ -11,7 +11,7 @@ const Navbar = () => {
         
           <div className='max-w-7xl justify-between flex items-center mx-auto '>
             <div className="logo"><Link href="/">
-            <Image priority src={logo} alt="logo" className='w-full h-10'/>
+            <Image  src={logo} alt="logo" className='w-full h-10'/>
             </Link></div>
             <Link href="/add-report"><Button  className='rounded-full'>Report  Issue</Button></Link>    
             

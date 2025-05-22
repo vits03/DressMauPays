@@ -205,7 +205,7 @@ useEffect(()=>{
         
 
     <div className="flex flex-col ">
-    <div className="my-grid gap-4 justify-items-center">
+    <div className="my-grid  gap-4 justify-items-center">
       {loading && reports.length === 0
         ? Array.from({ length: 6 }).map((_, i) => <ReportCardSkeleton key={i} />)
         : reports.map((report) => (

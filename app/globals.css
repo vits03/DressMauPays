@@ -162,6 +162,7 @@
     .sidebar-md{
       display:flex;
         flex-direction: row;
+
     }
   }
 
@@ -201,14 +202,25 @@ body {
   }
 }
 
-@media (min-width: 1000px) { /* lg */
+@media (min-width: 1060px) { /* lg */
   .my-grid {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 }
 
-@media (min-width: 1280px) { /* xl */
+@media (min-width: 1350px) { /* xl */
   .my-grid {
     grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+
+@media (max-width:350px) {
+  .card-small-screen-width {
+    width: 16rem;
+   
+  }
+
+  .card-small-screen-height{
+    height: 200px;
   }
 }

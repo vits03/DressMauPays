@@ -23,11 +23,11 @@ export default function FilterSidebar({setFilters,filters}:FilterSidebarProps) {
   const [isMobileFilterOpen, setIsMobileFilterOpen] = useState(false);
 
   return (
-    <div className="justify-items-end mb-3 bg-white ">
+    <div className="justify-items-end mb-3  lg:bg-white">
       {/* Mobile Filter Button (hidden on md and up) */}
 
       <button
-        className="hide-on-md flex gap-2 px-3 py-2 bg-primary text-white rounded-full"
+        className="hide-on-md flex gap-2 px-3 py-2 my-5 bg-primary text-white rounded-full"
         onClick={() => setIsMobileFilterOpen(true)}
       >
           <Funnel /> <span>Filter</span>
@@ -58,7 +58,7 @@ export default function FilterSidebar({setFilters,filters}:FilterSidebarProps) {
             ✕
           </button>
 
-          <div className="p-6 space-y-6">
+          <div className="p-6  space-y-6">
             <h2 className="text-xl  font-semibold">Filter Reports</h2>
             {/* Filter Form */}
             <FilterForm  setIsMobileFilterOpen={setIsMobileFilterOpen}  setFilters={setFilters} />

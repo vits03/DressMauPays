@@ -198,11 +198,12 @@ useEffect(()=>{
 
   return (
      <>
-     <p className="ml-7 text-lg font-semibold">showing {reports.length} results</p>
+                <p className="ml-7 text-lg font-semibold">showing {reports.length} results</p>
+
         <div className="flex justify-center sidebar-md flex-col">
-      
+
               <FilterSidebar filters={filters} setFilters={setFilters}/>
-        
+      
 
     <div className="flex flex-col ">
     <div className="my-grid  gap-4 justify-items-center">

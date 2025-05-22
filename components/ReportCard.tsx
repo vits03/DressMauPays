@@ -33,7 +33,7 @@ const ReportCard = ({ id, imageURLs=[], locality, createdAt, title, description 
 
   return (
    <Link href={`/report/${id}`}>
-  <div className="card-container border-2 border-primary  relative urgency-${urgency} bg-white shadow-2xl  w-[19rem] border-gray-500 rounded-[12px] flex-shrink-0">
+  <div className={`card-container border-2 border-primary  relative urgency-${urgency} bg-white shadow-2xl  w-[19rem] border-gray-500 rounded-[12px] flex-shrink-0`}>
     <div className="w-full h-[225px] overflow-hidden rounded-t-[12px]">
       <Image
         className="w-full h-full object-cover"

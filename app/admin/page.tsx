@@ -5,7 +5,6 @@ import { useEffect } from "react";
 import { useAuth } from "@/utils/AuthContext";
 import { AuthProvider } from "@/utils/AuthContext";
 
-
 const clearUser = async () => {
   const currentUser = auth.currentUser;
   if (currentUser) {
@@ -40,14 +39,43 @@ export default function AdminPage() {
     clearIfAnonymous();
   }, [user, isAdmin, loading]);
 
-  if (loading) return <p>Loading...</p>;
-  if (!user) return <button onClick={login}>Login with Google</button>;
-  if (!isAdmin) return <p>Access denied. You are not an admin. <span onClick={login}>log in</span></p>;
-
+  if (loading)
+    return (
+      <div className="p-10 bg-primary h-fit ml-20 mt-20 rounded-full text-white">
+        <p className="">Loading...</p>{" "}
+      </div>
+    );
+  if (!user)
+    return (
+      <div className="p-10 bg-primary h-fit ml-20 mt-20 rounded-full text-white">
+        <button onClick={login}>Login with Google</button>{" "}
+      </div>
+    );
+  if (!isAdmin)
+    return (
+      <div className="p-10 bg-primary h-fit ml-20 mt-20 rounded-full text-white">
+        <p>
+          Access denied. You are not an admin.{" "}
+          <span
+            className="bg-white text-primary px-4 py-2 rounded-full"
+            onClick={login}
+          >
+            log in
+          </span>
+        </p>
+        ;
+      </div>
+    );
   return (
-    <div>
+          <div className="p-10 bg-primary h-fit ml-20 mt-20 rounded-full text-white">
+
       <h1>Welcome, Admin {user.email}</h1>
-      <button onClick={logout}>Logout</button>
+      <button
+        className="bg-white text-primary px-4 py-2 rounded-full mx-auto"
+        onClick={logout}
+      >
+        Logout
+      </button>
     </div>
   );
 }

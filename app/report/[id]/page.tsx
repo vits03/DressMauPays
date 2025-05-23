@@ -46,7 +46,7 @@ export default async function ReportPage({ params }: { params: tParams }) {
   className="transform-gpu overflow-hidden"
   style={{ transform: "translateZ(0)", willChange: "transform" }}
 >
-    <div className="w-95/100 md:border-x-1 border-gray-500 p-5 min-h-screen mx-auto max-w-5xl md:w-9/10">
+    <div className="w-95/100 md:border-x-1 pb-10 border-gray-500 p-5 min-h-screen mx-auto max-w-5xl md:w-9/10">
       <Link href="/">
         <div className="flex gap-2">
           <CircleChevronLeft />

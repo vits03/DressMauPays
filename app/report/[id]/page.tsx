@@ -54,15 +54,15 @@ export default async function ReportPage({ params }: { params: tParams }) {
         </div>
       </Link>
 
-      <div className=" flex flex-col justify-center items-center mt-10 w-full report-container">
-        <h1 className="text-2xl font-semibold mb-5">
-          {report.title[0].toUpperCase() + report.title.slice(1)}
+      <div className=" flex flex-col justify-center items-center   break-words mt-10 w-full report-container">
+        <h1 className="text-2xl font-semibold text-center md:w-xl max-w-xl   w-full mb-5">
+         {report.title[0].toUpperCase() + report.title.slice(1)}
         </h1>
 
         <CarouselDemo imageURLs={report.imageURLs} />
 
-        <div className="report-description border-2 border-gray-400 md:w-xl max-w-xl flex flex-col gap-6 p-4 mt-10 rounded-2xl">
-          <div>
+        <div className="report-description border-2 border-gray-400 md:w-xl max-w-xl   w-full  flex flex-col gap-6 p-4 mt-10 rounded-2xl">
+          <div className="flex flex-col ">
             <h2 className="text-md font-semibold mb-1 ">Description</h2>
             <p className=" font-normal text-sm">{report.description}</p>
           </div>

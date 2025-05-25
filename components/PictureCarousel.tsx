@@ -1,3 +1,4 @@
+"use client"
 import * as React from "react";
 import Image from "next/image";
 import { Card, CardContent } from "@/components/ui/card";
@@ -36,6 +37,8 @@ export function CarouselDemo({ imageURLs }: CarouselDemoProps) {
                         fill
                         className="object-contain"
                         sizes="(max-width: 768px) 100vw, 800px"
+                        unoptimized
+                        loading="lazy"
                       />
                     </div>
                   </Link>

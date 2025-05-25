@@ -6,14 +6,12 @@ import { Button } from "@/components/ui/button";
 import Link from "next/link";
 import { DocumentData } from "firebase/firestore";
 import Image from "next/image";
-import { useMediaQuery } from 'react-responsive'; // or use your own hook
-
+import { useEffect, useState } from "react";
 type FeedClientProps = {
   initialReports: DocumentData[];
 };
 export default function HomeClient({ initialReports }: FeedClientProps) {
   const feedRef = useRef<HTMLDivElement>(null);
-const isMobile = useMediaQuery({ maxWidth:642});
 
   const scrollToFeed = () => {
     feedRef.current?.scrollIntoView({ behavior: "smooth" });
@@ -25,7 +23,7 @@ const isMobile = useMediaQuery({ maxWidth:642});
         
 <div className="relative w-full  md:aspect-[3/2] aspect-[3/4] max-w-4xl mx-auto my-10 border-2 rounded-2xl overflow-hidden">
   <Image
-  src={isMobile ? "/hero-mobile-blur.png" : "/hero-desktop-blur.png"}
+  src="/hero-mobile-blur.webp"
     alt="Background"
     fill // fills the container
     className="object-cover"

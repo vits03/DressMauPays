@@ -27,7 +27,7 @@ export default function FilterSidebar({setFilters,filters}:FilterSidebarProps) {
       {/* Mobile Filter Button (hidden on md and up) */}
 
       <button
-        className="hide-on-md flex gap-2 px-3 py-2 my-5 bg-primary text-white rounded-full"
+        className="hide-on-md flex gap-2 px-3 py-2 my-2 bg-primary text-white rounded-full"
         onClick={() => setIsMobileFilterOpen(true)}
       >
           <Funnel /> <span>Filter</span>
@@ -41,7 +41,7 @@ export default function FilterSidebar({setFilters,filters}:FilterSidebarProps) {
       >
         {/* Overlay */}
         <div
-          className="absolute inset-0 bg-black bg-opacity-50"
+          className="absolute inset-0 bg-primary bg-opacity-50"
           onClick={() => setIsMobileFilterOpen(false)}
         />
 

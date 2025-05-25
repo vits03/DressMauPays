@@ -16,7 +16,7 @@ type CarouselDemoProps = {
 
 export function CarouselDemo({ imageURLs }: CarouselDemoProps) {
   return (
-    <div className="w-full max-w-xl mx-auto">
+    <div className="w-full border-1 rounded-2xl border-primary max-w-xl mx-auto">
       <Carousel className="w-full ">
         <CarouselContent>
           {imageURLs.map((imageURL, index) => (

@@ -198,15 +198,17 @@ useEffect(()=>{
 
   return (
      <>
-                <p className="ml-7 text-lg font-semibold">showing {reports.length} results</p>
 
-        <div className="flex justify-center sidebar-md flex-col">
+        <div className="flex justify-center sidebar-md  flex-col">
 
               <FilterSidebar filters={filters} setFilters={setFilters}/>
       
 
     <div className="flex flex-col ">
+   <p className="mb-5 lg:self-start self-center text-lg font-semibold ">{`Showing ${reports.length} results`}</p>
+
     <div className="my-grid  gap-4 justify-items-center">
+      
       {loading && reports.length === 0
         ? Array.from({ length: 6 }).map((_, i) => <ReportCardSkeleton key={i} />)
         : reports.map((report) => (
@@ -226,7 +228,7 @@ useEffect(()=>{
 
     </div>
      {hasMore && !loading && (
-        <Button onClick={fetchMore} className="w-fit mx-auto mt-5 rounded-full">
+        <Button onClick={fetchMore} className="w-fit mx-auto mt-10 rounded-full">
           Load More
         </Button>
       )}

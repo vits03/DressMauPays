@@ -61,7 +61,7 @@ export default async function ReportPage({ params }: { params: tParams }) {
 
         <CarouselDemo imageURLs={report.imageURLs} />
 
-        <div className="report-description border-2 border-gray-400 md:w-xl max-w-xl   w-full  flex flex-col gap-6 p-4 mt-10 rounded-2xl">
+        <div className="report-description border-2 border-primary md:w-xl max-w-xl   w-full  flex flex-col gap-6 p-4 mt-10 rounded-2xl">
           <div className="flex flex-col ">
             <h2 className="text-md font-semibold mb-1 ">Description</h2>
             <p className=" font-normal text-sm">{report.description}</p>
@@ -112,7 +112,7 @@ export default async function ReportPage({ params }: { params: tParams }) {
           </div>
         </div>
       
-        <div className="border-2  overflow-hidden border-gray-400 mt-10 flex justify-center items-center gap-5 py-5 rounded-2xl flex-col  px-3 max-w-2xl">
+        <div className="border-2  overflow-hidden border-primary mt-10 flex justify-center items-center gap-5 py-5 rounded-2xl flex-col  px-3 max-w-2xl">
           {report.resolutionRequest ? (
             <h2 className="font-medium">
               A resolution request has already been submitted.Review Pending.

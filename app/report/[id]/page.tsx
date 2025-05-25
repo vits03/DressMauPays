@@ -7,6 +7,8 @@ import { CarouselDemo } from "@/components/PictureCarousel";
 import { MapPin } from "lucide-react";
 import { LogIn } from "lucide-react";
 import ReportPageUpload from "@/components/ReportPageUpload";
+import { notFound } from 'next/navigation'
+
 type tParams = Promise<{ id: string }>;
 
 //get report id from props [id]
@@ -20,7 +22,7 @@ export default async function ReportPage({ params }: { params: tParams }) {
   const docSnap = await getDoc(docRef);
 
   if (!docSnap.exists()) {
-    return <div>Report not found</div>;
+    return notFound();
   }
 
   const report = docSnap.data();
@@ -101,12 +103,12 @@ export default async function ReportPage({ params }: { params: tParams }) {
             >
               <button
                 disabled={!isGpsPresent()}
-                className={`flex gap-2 py-2   hover:bg-gray-400  px-5 border-2 w-fit rounded-xl ${
+                className={`flex gap-2 py-2   hover:bg-accent hover:text-primary text-white bg-primary px-5  w-fit rounded-xl ${
                   !isGpsPresent() ? "opacity-35 disabled" : "bg-gray-300"
                 }`}
               >
                 <p className="font-medium text-sm">Open in maps</p>
-                <LogIn />
+                <MapPin />
               </button>
             </a>
           </div>

@@ -226,13 +226,21 @@ body {
 }
 
 .hero {
-    background-image:url('/hero-mobile.png');
+    background-image:url('/hero-mobile-final.png');
 }
 
 
-@media only screen and (min-width: 550px) {
+@media only screen and (min-width: 500px) {
   .hero {
-    background-image: url('/hero-section.png');
-   
+    background-image: url('/hero-desktop.png');
+    
+  }
+}
+
+
+@media only screen and (max-width: 335px) {
+  .hero-mobile-small {
+    font-size:16px;
+    
   }
 }

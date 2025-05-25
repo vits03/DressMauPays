@@ -3,6 +3,9 @@ import * as React from "react";
 import Image from "next/image";
 import { Card, CardContent } from "@/components/ui/card";
 import Link from "next/link";
+import { useState } from "react";
+import NextImageWithLoader from '@/components/NextImageWithSpinner';
+
 import {
   Carousel,
   CarouselContent,
@@ -10,12 +13,15 @@ import {
   CarouselNext,
   CarouselPrevious,
 } from "@/components/ui/carousel";
+import NextImageWithSpinner from "@/components/NextImageWithSpinner";
 
 type CarouselDemoProps = {
   imageURLs: string[];
 };
 
 export function CarouselDemo({ imageURLs }: CarouselDemoProps) {
+    const [isLoading, setIsLoading] = useState(true);
+
   return (
     <div className="w-full border-1 rounded-2xl border-primary max-w-xl mx-auto">
       <Carousel className="w-full ">
@@ -28,18 +34,12 @@ export function CarouselDemo({ imageURLs }: CarouselDemoProps) {
                     <div className="relative w-full aspect-[4/3]">
                       {" "}
                       {/* ✅ MUST BE RELATIVE and have dimensions */}
-                      <Image
-                        src={
-                          imageURL ||
-                          "https://placehold.co/800x600?text=No+Image"
-                        }
-                        alt={`Report image ${index + 1}`}
-                        fill
-                        className="object-contain"
-                        sizes="(max-width: 768px) 100vw, 800px"
-                        unoptimized
-                        loading="lazy"
-                      />
+                     <NextImageWithSpinner
+  src={imageURL}
+  alt={`Report image ${index + 1}`}
+  sizes="(max-width: 768px) 100vw, 800px"
+  index={index}
+/>
                     </div>
                   </Link>
                 </CardContent>

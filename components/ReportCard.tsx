@@ -45,8 +45,7 @@ const ReportCard = ({ id, imageURLs=[], locality, createdAt, title, description 
         width={800}
         height={600}
         alt="Report Image"
-        unoptimized
-  loading={index < 3 ? 'eager' : 'lazy'} 
+       
       />
     </div>
 

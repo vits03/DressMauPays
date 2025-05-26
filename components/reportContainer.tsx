@@ -6,8 +6,8 @@ import { loginAnonymously } from "@/lib/firebase";
 import { Button } from "@/components/ui/button";
 import  { useEffect} from 'react'
 import Link from "next/link";
-const AddReport = () => {
 
+const ReportContainer = () => {
  useEffect(() =>{
   loginAnonymously()
  },[])
@@ -33,4 +33,5 @@ const AddReport = () => {
   );
 };
 
-export default AddReport;
+
+export default ReportContainer

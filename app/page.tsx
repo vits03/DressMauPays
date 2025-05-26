@@ -24,6 +24,38 @@ import HomeClient from "@/components/HomeClient";
 type HomePageProps = {
   reports: DocumentData[];
 };
+
+
+export const metadata = {
+  title: 'Dressmaupays – Report Local Issues in Mauritius',
+  description:
+    'Dressmaupays empowers Mauritian citizens to report problems in their locality—such as potholes, broken lights, or illegal dumping—and help build a better community.',
+  openGraph: {
+    title: 'Dressmaupays – Report Local Issues in Mauritius',
+    description:
+      'Use Dressmaupays to easily report civic issues in your neighborhood and make your voice heard. Together, we improve our communities across Mauritius.',
+    url: 'https://dressmaupays.com', 
+    images: [
+      {
+        url: 'https://firebasestorage.googleapis.com/v0/b/dressmaupays.firebasestorage.app/o/reports%2Fdressmaupays-logo-bg.-croppedjpg.webp?alt=media&token=8872b3dd-387e-42a2-a8ad-301fd9bdab4c', 
+        width: 1024,
+        height: 587,
+        alt: 'Dressmaupays – Community Reporting Platform',
+      },
+    ],
+  },
+  keywords: [
+    'Mauritius',
+    'community reporting',
+    'report issues',
+    'local problems',
+    'civic engagement',
+    'Dressmaupays',
+    'pothole report',
+    'municipal issues',
+  ],
+  metadataBase: new URL('https://dressmaupays.com'), // Optional but useful
+};
 const getReports = async () => {
   let q: any = query(
     collection(db, "reports"),

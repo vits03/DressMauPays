@@ -17,10 +17,7 @@ const inter = Inter({
 
 
 
-export const metadata: Metadata = {
-  title: "DressMauPays",
-  description: "post all issues in your locality",
-};
+
 
 export default function RootLayout({
   children,

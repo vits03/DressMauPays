@@ -42,7 +42,7 @@ Welcome to<span className="text-accent"> DressMauPays</span></h1>
 
         <div className="     space-x-3 space-y-5 flex  justify-center items-center  md:flex-row flex-col md:items-baseline ">
           <div>
-            <Link href="/add-report">
+            <Link href="/new-report">
               <Button className="text-sm hover:text-accent font-bold bg-accent text-primary rounded-full">
                 Report An Issue
               </Button>

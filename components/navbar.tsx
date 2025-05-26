@@ -13,7 +13,7 @@ const Navbar = () => {
             <div className="logo"><Link href="/">
             <Image  src={logo} alt="logo" className='w-full h-10'/>
             </Link></div>
-            <Link href="/add-report"><Button  className='rounded-full'>Report  Issue</Button></Link>    
+            <Link href="/new-report"><Button  className='rounded-full'>Report  Issue</Button></Link>    
             
          
           </div>

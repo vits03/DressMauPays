@@ -170,7 +170,7 @@ export function ReportForm() {
                 <FormLabel>Problem Title*</FormLabel>
                 <FormControl>
                   <Input
-                    className="border-2 border-gray-400"
+                    className="border-1 border-primary"
                     placeholder="Broken streetlight..."
                     {...field}
                   />
@@ -189,7 +189,7 @@ export function ReportForm() {
                 <FormLabel>Description*</FormLabel>
                 <FormControl>
                   <Textarea
-                    className="border-2 border-gray-400"
+                    className="border-1 border-primary"
                     placeholder="Describe the issue..."
                     {...field}
                   />
@@ -272,7 +272,7 @@ export function ReportForm() {
                 <FormLabel>Address*</FormLabel>
                 <FormControl>
                   <Input
-                    className="border-2 border-gray-400"
+                    className="border-1 border-primary focus:border-primary"
                     placeholder="Royal Road ,..."
                     {...field}
                   />

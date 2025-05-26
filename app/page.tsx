@@ -30,7 +30,7 @@ const getReports = async () => {
     where("isApproved", "==", true),
     where("isResolved", "==", false)
   );
-  q = query(q, orderBy("createdAt", "desc"), limit(9));
+  q = query(q, orderBy("createdAt", "desc"), limit(12));
   const snap = await getDocs(q);
   const docs = snap.docs.map((doc) => ({
     id: doc.id,

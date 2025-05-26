@@ -17,7 +17,7 @@ import ReportCardSkeleton from "./reportCardSkeleton";
 import FilterSidebar from "./FilterSidebar";
 import { useSessionStorage } from "@uidotdev/usehooks";
 
-const PAGE_SIZE = 9;
+const PAGE_SIZE = 12;
 interface ReportData {
   title: string;
   description: string;

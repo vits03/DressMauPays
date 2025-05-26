@@ -211,7 +211,7 @@ useEffect(()=>{
       
       {loading && reports.length === 0
         ? Array.from({ length: 6 }).map((_, i) => <ReportCardSkeleton key={i} />)
-        : reports.map((report) => (
+        : reports.map((report,index) => (
             <ReportCard
               key={report.id}
               id={report.id}
@@ -221,6 +221,7 @@ useEffect(()=>{
               createdAt={report.createdAt}
               locality={report.locality}
               urgency={report.urgency}
+              index={index}
             />
           ))}
 

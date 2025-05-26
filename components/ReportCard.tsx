@@ -13,6 +13,7 @@ type Report = {
   createdAt: Timestamp ;
   title: string;
   description: string;
+  index:number;
 };
 function toReadableDate(input: any): string {
   if (!input) return "No date";
@@ -28,8 +29,8 @@ function toReadableDate(input: any): string {
   const date = new Date(input);
   return isNaN(date.getTime()) ? "Invalid date" : date.toLocaleDateString("en-GB");
 }
-const ReportCard = ({ id, imageURLs=[], locality, createdAt, title, description ,urgency}: Report) => {
-  console.log("ReportCard props", { id, imageURLs, locality, createdAt, title, description });
+const ReportCard = ({ id, imageURLs=[], locality, createdAt, title, description ,urgency,index}: Report) => {
+  console.log("ReportCard props", { id, imageURLs, locality, createdAt, title, description,index });
 
   return (
    <Link href={`/report/${id}`}>
@@ -45,7 +46,7 @@ const ReportCard = ({ id, imageURLs=[], locality, createdAt, title, description 
         height={600}
         alt="Report Image"
         unoptimized
-        loading='lazy'
+  loading={index < 3 ? 'eager' : 'lazy'} 
       />
     </div>
 

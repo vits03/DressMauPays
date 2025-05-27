@@ -21,8 +21,8 @@ export default function HomeClient({ initialReports }: FeedClientProps) {
   return (
     <div className="w-95/100 min-h-screen mx-auto max-w-7xl pb-17 md:w-9/10">
 
-        
-<div className="relative w-full  flex h-[calc(100vh-150px)] justify-center items-center md:h-auto md:aspect-[3/2] aspect-[3/4] max-w-4xl mx-auto my-10 border-2 rounded-2xl overflow-hidden">
+        <div className="flex h-[calc(100vh-75px)] justify-center items-center">
+<div className="relative w-full  flex h-9/10 justify-center items-center md:h-auto md:aspect-[3/2] aspect-[3/4] max-w-4xl mx-auto my-10 border-2 rounded-2xl overflow-hidden">
   <Image
   src="/hero-mobile-blur.webp"
     alt="Background"
@@ -63,7 +63,7 @@ export default function HomeClient({ initialReports }: FeedClientProps) {
           <ArrowDownToDot onClick={scrollToFeed} size={70} className=" md:hidden"/>
         </div>
       </div>
- </div>
+ </div></div>
       <FeedClientWrapper ref={feedRef} initialReports={initialReports} />
     </div>
   );

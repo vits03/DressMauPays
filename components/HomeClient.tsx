@@ -21,8 +21,8 @@ export default function HomeClient({ initialReports }: FeedClientProps) {
   return (
     <div className="w-95/100 min-h-screen mx-auto max-w-7xl pb-17 md:w-9/10">
 
-        <div className="flex h-[calc(100vh-75px)] justify-center items-center">
-<div className="relative w-full  flex h-8/10 justify-center items-center md:h-auto md:aspect-[3/2] aspect-[3/4] max-w-4xl mx-auto my-10 border-2 rounded-2xl overflow-hidden">
+        <div className="flex h-[calc(100vh-75px)] justify-center items-start">
+<div className="relative w-full  flex h-85/100 justify-center items-center md:h-auto md:aspect-[3/2] aspect-[3/4] max-w-4xl mx-auto my-10 border-2 rounded-2xl overflow-hidden">
   <Image
   src="/hero-mobile-blur.webp"
     alt="Background"
@@ -32,7 +32,7 @@ export default function HomeClient({ initialReports }: FeedClientProps) {
   />
           <div className="relative z-10 text-center text-white flex flex-col gap-5 md:gap-20 justify-between md:justify-center  items-center h-full p-10">
 
-        <div className="space-y-10">
+        <div className="space-y-8">
           
           <h1 className="text-3xl    opacity-100 font-semibold hero-mobile-small  "> 
           Welcome to<span className="text-accent"> DressMauPays</span></h1>

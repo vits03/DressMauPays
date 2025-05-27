@@ -30,6 +30,14 @@ const Sidebar = () => {
             </div>
           </Link>
         </div>
+
+        <div>
+          <Link href="/admin/allreports">
+            <div className="border-2 rounded-full px-4 py-2 bg-accent text-center">
+              All reports
+            </div>
+          </Link>
+        </div>
         <div>
           <Link href="/admin/pendingreports">
             <div className="border-2 rounded-full px-4 py-2 bg-accent text-center">
@@ -47,6 +55,8 @@ const Sidebar = () => {
         </div>
        
       </div>
+
+      
 
       <button
         onClick={logout}

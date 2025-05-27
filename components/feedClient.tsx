@@ -199,7 +199,7 @@ useEffect(()=>{
   return (
      <>
 
-        <div className="flex justify-center sidebar-md  flex-col">
+        <div className="flex justify-center sidebar-md pt-10 flex-col">
 
               <FilterSidebar filters={filters} setFilters={setFilters}/>
       

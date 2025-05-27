@@ -21,8 +21,8 @@ export default function HomeClient({ initialReports }: FeedClientProps) {
   return (
     <div className="w-95/100 min-h-screen mx-auto max-w-7xl pb-17 md:w-9/10">
 
-        <div className="flex h-[calc(100vh-75px)] min-h-[670px] md:h-auto justify-center  items-start md:items-center">
-<div className="relative w-full  flex h-85/100 md:h-[30rem] justify-center items-center  md:aspect-[3/2] aspect-[3/4] max-w-4xl mx-auto my-10 border-2 rounded-2xl overflow-hidden">
+        <div className="flex justify-center mb-10    items-start md:items-center">
+<div className="relative w-full  min-h-[600px]  justify-center items-center  md:aspect-[3/2] aspect-[3/4] max-w-4xl mx-auto my-10 border-2 rounded-2xl overflow-hidden">
   <Image
   src="/hero-mobile-blur.webp"
     alt="Background"
@@ -30,7 +30,7 @@ export default function HomeClient({ initialReports }: FeedClientProps) {
     className="object-cover"
     priority // optional: preload for hero images
   />
-          <div className="relative z-10 text-center text-white flex flex-col gap-5 md:gap-20 justify-between md:justify-center  items-center h-full p-10">
+          <div className="relative  z-10 text-center text-white flex flex-col gap-5 md:gap-20 justify-between md:justify-center  items-center h-full p-10">
 
         <div className="space-y-8">
           
@@ -60,7 +60,7 @@ export default function HomeClient({ initialReports }: FeedClientProps) {
             </Button>
           </div>
 
-          <ArrowDownToDot onClick={scrollToFeed} size={60} className=" md:hidden"/>
+          <ArrowDownToDot onClick={scrollToFeed} size={50} className=" md:hidden"/>
         </div>
       </div>
  </div></div>

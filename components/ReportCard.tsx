@@ -30,7 +30,6 @@ function toReadableDate(input: any): string {
   return isNaN(date.getTime()) ? "Invalid date" : date.toLocaleDateString("en-GB");
 }
 const ReportCard = ({ id, imageURLs=[], locality, createdAt, title, description ,urgency,index}: Report) => {
-  console.log("ReportCard props", { id, imageURLs, locality, createdAt, title, description,index });
 
   return (
    <Link href={`/report/${id}`}>

@@ -73,16 +73,13 @@ async function getLastDoc() {
     limit(PAGE_SIZE));
 
     const snapshot = await getDocs(q);
-   console.log("therreal docc is",snapshot.docs[snapshot.docs.length - 1])
     setLastDoc(snapshot.docs[snapshot.docs.length - 1]);
   
 
 }
 
     
-      useEffect(()=>{
-    console.log("session filters are",sessionFilters)
-      },[sessionFilters])
+     
   const [reports, setReports] = useState<DocumentData[]>(initialReports);
   const [lastDoc, setLastDoc] = useState<any>(null);
   const [loading, setLoading] = useState(false);
@@ -99,14 +96,11 @@ useEffect(() => {
  useEffect(() => { 
    
   // getLastDoc();
-      console.log("the boolean for first render is",isFirstRender.current)
-      console.log("initial filter is ",filters.order=== null);
  if (isFirstRender.current) {
     isFirstRender.current = false;
     return; // ❌ Skip first render
   } 
   if (filters.order !== null){
-     console.log("fetch entr")
      fetchInitial();
   }
   // ✅ Run only when `filters` changes (not on mount)
@@ -114,7 +108,6 @@ useEffect(() => {
 
 }, [filters]); 
 useEffect(()=>{
-  console.log("the last doc is",lastDoc)
   const {village,urgency,order,noReports}=sessionFilters
   if (filters.order === null){
    setFilters({village,urgency,order})

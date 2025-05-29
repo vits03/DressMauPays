@@ -218,7 +218,9 @@ useEffect(()=>{
             />
           ))}
 
-     
+      {
+        reports.length === 0 && !loading? <div className="opacity-0"><ReportCardSkeleton/></div> : <span></span>
+      }
 
     </div>
      {hasMore && !loading && (
